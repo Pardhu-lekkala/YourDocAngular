@@ -1,0 +1,93 @@
+<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+<div class="insurance-main-cont">
+    <h1 class="insurance-head-1">Insurance associated with this case</h1>
+    <!-- /***********************Table One***********************************-->
+    <mat-card class="card-cont">
+        <div class="address-cont">
+            <div class="block-1">
+                <div class="address-detail-cont">
+                    <h1 class="address">NY Black car operators fund 1082,14th Hwy S, Maso</h1>
+                </div>
+                <div class="ins-amount-cont">
+                    <h1 class="ins-amount">$2000</h1>
+                </div>
+            </div>
+            <div class="block-2">
+                <img src="/assets/moreInfo.svg" alt="..." style="cursor: Pointer;"/>
+            </div>
+        </div>
+        <div class="info-cont">
+            <div class="block-cont">
+                <p class="heading-1">Copay Amount</p>
+                <p class="value-1">{{insuranceData[0].copyAmount}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Relation</p>
+                <p class="value-1">{{insuranceData[0].Relation}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Effective from</p>
+                <p class="value-1">{{insuranceData[0].EffectiveFrom}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Expiration date</p>
+                <p class="value-1">{{insuranceData[0].ExpirationDate}}</p>
+            </div>
+        </div>
+        <mat-card-footer class="footer-card">View more info</mat-card-footer>
+      </mat-card>
+      <br>
+
+      <!-- /***********************Table Two***********************************-->
+      <h1 class="insurance-head-1">Additional insurance for patient</h1>
+      <mat-card class="card-cont" style="margin-bottom: 5%;">
+        <div class="address-cont">
+            <div class="block-1">
+                <div class="address-detail-cont">
+                    <h1 class="address">NY Black car operators fund 1082,14th Hwy S, Maso</h1>
+                </div>
+                <div class="ins-amount-cont">
+                    <h1 class="ins-amount">$2000</h1>
+                </div>
+            </div>
+            <div class="block-2">
+                <img src="/assets/moreInfo.svg" alt="..." style="cursor: Pointer;"/>
+            </div>
+        </div>
+        <div>
+        <div class="info-cont">
+            <div class="block-cont" >
+                <p class="heading-1">Copay Amount</p>
+                <p class="value-1">{{insuranceData[0].copyAmount}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Relation</p>
+                <p class="value-1">{{insuranceData[0].Relation}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Effective from</p>
+                <p class="value-1">{{insuranceData[0].EffectiveFrom}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Expiration date</p>
+                <p class="value-1">{{insuranceData[0].ExpirationDate}}</p>
+            </div>
+            </div>
+            <div style="display: flex;flex-direction: row;margin-top: 1%;">
+            <div class="block-cont">
+                <p class="heading-1">Carrier case #</p>
+                <p class="value-1">{{insuranceData[0].CarrierCaseId}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">WCB #</p>
+                <p class="value-1">{{insuranceData[0].WCB}}</p>
+            </div>
+            <div class="block-cont">
+                <p class="heading-1">Group ID</p>
+                <p class="value-1">{{insuranceData[0].GroupId}}</p>
+            </div>
+        </div>
+    </div>
+        <mat-card-footer class="footer-card">View less info</mat-card-footer>
+      </mat-card>
+</div>

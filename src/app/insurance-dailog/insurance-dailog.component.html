@@ -1,0 +1,636 @@
+<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<h1 mat-dialog-title class="dailog-title">Add Health Insurance Information</h1>
+<div>
+    <h2 class="ins-type">Insurance Type</h2>
+    <div class="tabs-container">
+        <button class="tab-btn" (click)="getTab('Worker’s Compensation')" [ngClass]="tab==='Worker’s Compensation'? 'tab-change': ''">Worker’s Compensation</button>
+        <button class="tab-btn" (click)="getTab('Liability')" [ngClass]="tab==='Liability'? 'tab-change': ''">Liability</button>
+        <button class="tab-btn" (click)="getTab('Auto Accident')" [ngClass]="tab==='Auto Accident'? 'tab-change': ''">Auto Accident</button>
+        <button class="tab-btn" (click)="getTab('Other')" [ngClass]="tab==='Other'? 'tab-change': ''">Other</button>
+        <button class="tab-btn" (click)="getTab('NJ-PIP')" [ngClass]="tab==='NJ-PIP'? 'tab-change': ''">NJ-PIP</button>
+        <button class="tab-btn" (click)="getTab('Commercial')" [ngClass]="tab==='Commercial'? 'tab-change': ''">Commercial</button>
+        <button class="tab-btn" (click)="getTab('Self Pay')" [ngClass]="tab==='Self Pay'? 'tab-change': ''">Self Pay</button>
+    </div>
+    <p class="title-2">{{tab}}</p>
+    <!-- /***************************Worker’s Compensation Form*********************************************** -->
+    <div class="compensation-tab-cont" *ngIf="tab==='Worker’s Compensation'">
+    <div class="content-container-1">
+        <div style="width:100% ;">
+            <form class="group-1">
+                <div class="sub-inp-cont">
+                <label for="wcb" class="label-1">WCB #</label><br>
+               <input type = "text" class = "inputBox" name = "wcb"
+                  formControlName="wcb">
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <label for="Relationship" class="label-1">Relationship to be Insured</label><span style="color: red;">*</span><br>
+               <!-- <input type = "text" class = "inputBox" name="Relationship" 
+                  placeholder = "Select Relationship " formControlName = "passwd"> -->
+                  <select  class="inputBox">
+                    <option value="" disabled selected>Select Relationship</option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+                </div>
+            </form>
+         </div>
+         <div style="width: 100%">
+            <form class="group-1">
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="status" class="label-1">Status</label><br>
+                      <select  class="inputBox">
+                        <option value="" disabled selected>Select Status</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <label for="state" class="label-1">State</label><span style="color: red;">*</span><br>
+                  <select  class="inputBox">
+                    <option value="" disabled selected>Select State</option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+                </div>
+            </form>
+         </div>
+         <div style="width: 100%;">
+            <form class="group-1">
+                <div class="sub-inp-cont">
+                <label for="CarrierCase" class="label-1">Carrier Case #</label><br>
+               <input type = "text" class = "inputBox" name = "CarrierCase"
+                  formControlName="CarrierCase">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="CarrierId" class="label-1">Carrier Id #</label><br>
+                   <input type = "text" class = "inputBox" name = "CarrierId"
+                      formControlName="CarrierId">
+                </div>               
+            </form>
+         </div>
+         <div style="width: 100%;">
+            <form class="group-1">
+                <div class="sub-inp-cont">
+                <label for="city" class="label-1">City</label><br>
+               <input type = "text" class = "inputBox" name = "city"
+                  formControlName="city">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="otherInfo" class="label-1">Other Information</label><br>
+                   <input type = "text" class = "inputBox" name = "otherInfo"
+                      formControlName="otherInfo">
+                </div>               
+            </form>
+         </div>
+         <div style="margin-top: 15px;">
+            <p class="label-1" style="margin-left: 2.7%;">Priority</p>
+            <form class="radio-form">
+                <div>
+                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
+                  <label for="html" class="radio-label">Primary</label>
+                </div>
+                <div>
+                  <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
+                  <label for="css" class="radio-label">Secondary</label>
+                </div>
+                <div>
+                  <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
+                  <label for="javascript" class="radio-label">Tertiary</label>
+                </div>
+              </form>
+         </div>
+         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
+            <label for="Adjuster" class="label-1">Adjuster</label><br>
+              <select  class="inputBox">
+                <option value="" disabled selected>Select Adjuster</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+        <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
+            <label for="Payer" class="label-1">Payer</label><span style="color: red;">*</span>
+              <select  class="inputBox">
+                <option value="" disabled selected>Search Payer</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+        <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
+            <label for="Supervisor" class="label-1">Supervisor</label><br>
+              <select  class="inputBox">
+                <option value="" disabled selected>Select Supervisor</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+        <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
+            <label for="HR" class="label-1">HR</label><br>
+              <select  class="inputBox">
+                <option value="" disabled selected>Select HR</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+    </div>
+    <div class="btn-cont-1">
+        <button class="btn-cancel" mat-dialog-close>Cancel</button>
+        <button class="btn-update">Update Info</button>
+    </div>
+</div>
+<!-- /***************************Liabilty Form***************************************** -->
+<div class="compensation-tab-cont" *ngIf="tab==='Liability'">
+    <div class="content-container-1">
+        <div style="width:100% ;">
+            <form class="group-1">
+                <div class="sub-inp-cont">
+                <label for="Effective" class="label-1">Effective From</label><br>
+               <input type = "date" class = "inputBox" name = "wcb"
+                  formControlName="Effective" placeholder="mm/dd/yyyy">
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <label for="Status" class="label-1">Status</label>
+                  <select  class="inputBox">
+                    <option value="" disabled selected>Select Status </option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+                </div>
+            </form>
+         </div>
+         <div style="margin-top: 15px;">
+            <p class="label-1" style="margin-left: 2.7%;">Priority</p>
+            <form class="radio-form">
+                <div>
+                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
+                  <label for="html" class="radio-label">Primary</label>
+                </div>
+                <div>
+                  <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
+                  <label for="css" class="radio-label">Secondary</label>
+                </div>
+                <div>
+                  <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
+                  <label for="javascript" class="radio-label">Tertiary</label>
+                </div>
+              </form>
+         </div>
+        <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
+            <label for="Payer" class="label-1">Payer</label>
+              <select  class="inputBox">
+                <option value="" disabled selected>Search Payer</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+    </div>
+    <div class="btn-cont-1">
+        <button class="btn-cancel" mat-dialog-close>Cancel</button>
+        <button class="btn-update">Update Info</button>
+    </div>
+</div>
+<!-- /**********************************Auto Accident Form********************************* -->
+<div class="compensation-tab-cont" *ngIf="tab==='Auto Accident'">
+    <div class="content-container-1">
+        <div style="width:100% ;">
+            <form class="group-1">
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="Claim" class="label-1">Claim #</label>
+                    <select  class="inputBox">
+                        <option value="" disabled selected>Select Status</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="Relationship" class="label-1">Relationship to be Insured</label><span style="color: red;">*</span><br>
+                    <select  class="inputBox">
+                        <option value="" disabled selected>Select Relationship</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                </div>
+            </form>
+         </div>
+         <div style="width: 100%">
+            <form class="group-1">
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="Effective" class="label-1">Effective From</label><br>
+                      <select  class="inputBox">
+                        <option value="" disabled selected>mm/dd/yyyy</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <label for="Effective from" class="label-1">Effective From</label>
+                  <select  class="inputBox">
+                    <option value="" disabled selected>mm/dd/yyyy</option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+                </div>
+            </form>
+         </div>
+         <div style="width: 100%">
+            <form class="group-1">
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="Status" class="label-1">Status</label>
+                      <select  class="inputBox">
+                        <option value="" disabled selected>Select Status</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <label for="state" class="label-1">State</label><span style="color: red;">*</span>
+                  <select  class="inputBox">
+                    <option value="" disabled selected>Select State</option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+                </div>
+            </form>
+         </div>
+         <div style="width: 100%;">
+            <form class="group-1">
+                <div class="sub-inp-cont">
+                <label for="Policy" class="label-1">Policy</label><br>
+               <input type = "text" class = "inputBox" name = "city"
+                  formControlName="city">
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="city" class="label-1">City</label>
+                      <select  class="inputBox">
+                        <option value="" disabled selected>Select City</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                </div>              
+            </form>
+         </div>
+         <div style="width: 100%;">
+            <form class="group-1">
+                <div class="sub-inp-cont">
+                <label for="otherInfo" class="label-1">Other Information</label><br>
+               <input type = "text" class = "inputBox" name = "city"
+                  formControlName="city">
+                </div>
+            </form>
+        </div>
+         <div style="margin-top: 15px;">
+            <p class="label-1" style="margin-left: 2.7%;">Priority</p>
+            <form class="radio-form">
+                <div>
+                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
+                  <label for="html" class="radio-label">Primary</label>
+                </div>
+                <div>
+                  <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
+                  <label for="css" class="radio-label">Secondary</label>
+                </div>
+                <div>
+                  <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
+                  <label for="javascript" class="radio-label">Tertiary</label>
+                </div>
+              </form>
+         </div>
+         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
+            <label for="Adjuster" class="label-1">Adjuster</label><br>
+              <select  class="inputBox">
+                <option value="" disabled selected>Select Adjuster</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+        <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
+            <label for="Payer" class="label-1">Payer</label><span style="color: red;">*</span>
+              <select  class="inputBox">
+                <option value="" disabled selected>Search Payer</option>
+                <option ng-repeat="x in names">ABC</option>
+                <option ng-repeat="x in names">EFG</option>
+                <option ng-repeat="x in names">HIJ</option>
+            </select>
+        </div>
+    </div>
+    <!-- *****************Financial Status**************************************** -->
+    <p class="title-2">Financial Status</p>
+    <div class="compensation-tab-cont">
+        <div class="content-container-1">
+            <div style="width: 100%;">
+                <form class="group-1" style="margin-bottom: 30px;">
+                    <div class="sub-inp-cont">
+                    <label for="Policy Amount" class="label-1">Policy Amount</label><br>
+                   <input type = "text" class = "inputBox" name = "CarrierCase"
+                      formControlName="CarrierCase" placeholder="$$$">
+                    </div>
+                    <div class="sub-inp-cont">
+                        <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
+                       <input type = "text" class = "inputBox" name = "CarrierId"
+                          formControlName="CarrierId" placeholder="$$$">
+                    </div>               
+                </form>
+             </div>  
+    </div>
+    <div class="btn-cont-1">
+        <button class="btn-cancel" mat-dialog-close>Cancel</button>
+        <button class="btn-update">Update Info</button>
+    </div>
+</div>
+</div>
+<!-- ****************************Other Info Form******************************* -->
+<div class="compensation-tab-cont" *ngIf="tab==='Other'">
+    <div class="content-container-1">
+        <div style="width: 100%;">
+            <form class="group-1" style="margin-bottom: 30px;">
+                <div class="sub-inp-cont">
+                <label for="Other Information" class="label-1">Other Information</label><br>
+               <input type = "text" class = "inputBox" name = "Other Information"
+                  formControlName="CarrierCase">
+                </div>              
+            </form>
+         </div>  
+        </div>
+        <div class="btn-cont-1">
+            <button class="btn-cancel" mat-dialog-close>Cancel</button>
+            <button class="btn-update">Update Info</button>
+        </div>
+        <!-- *****************************NJ-PIP Form*************************** -->  
+    </div>
+    <div class="compensation-tab-cont" *ngIf="tab==='NJ-PIP'">
+        <div class="content-container-1">
+            <div style="width:100% ;">
+                <form class="group-1">
+                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                        <label for="Claim" class="label-1">Claim #</label>
+                        <select  class="inputBox">
+                            <option value="" disabled selected>Select Status</option>
+                            <option ng-repeat="x in names">ABC</option>
+                            <option ng-repeat="x in names">EFG</option>
+                            <option ng-repeat="x in names">HIJ</option>
+                        </select>
+                    </div>
+                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                        <label for="Relationship" class="label-1">Relationship to be Insured</label><span style="color: red;">*</span><br>
+                        <select  class="inputBox">
+                            <option value="" disabled selected>Select Relationship</option>
+                            <option ng-repeat="x in names">ABC</option>
+                            <option ng-repeat="x in names">EFG</option>
+                            <option ng-repeat="x in names">HIJ</option>
+                        </select>
+                    </div>
+                </form>
+             </div>
+             <div style="width: 100%">
+                <form class="group-1">
+                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                        <label for="Effective" class="label-1">Effective From</label><br>
+                          <select  class="inputBox">
+                            <option value="" disabled selected>mm/dd/yyyy</option>
+                            <option ng-repeat="x in names">ABC</option>
+                            <option ng-repeat="x in names">EFG</option>
+                            <option ng-repeat="x in names">HIJ</option>
+                        </select>
+                    </div>
+                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="Effective from" class="label-1">Effective From</label>
+                      <select  class="inputBox">
+                        <option value="" disabled selected>mm/dd/yyyy</option>
+                        <option ng-repeat="x in names">ABC</option>
+                        <option ng-repeat="x in names">EFG</option>
+                        <option ng-repeat="x in names">HIJ</option>
+                    </select>
+                    </div>
+                </form>
+             </div>
+             <div style="width: 100%">
+                <form class="group-1">
+                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                        <label for="Status" class="label-1">Status</label>
+                          <select  class="inputBox">
+                            <option value="" disabled selected>Select Status</option>
+                            <option ng-repeat="x in names">ABC</option>
+                            <option ng-repeat="x in names">EFG</option>
+                            <option ng-repeat="x in names">HIJ</option>
+                        </select>
+                    </div>
+                    <div class="sub-inp-cont">
+                        <label for="policy" class="label-1">Policy #</label><br>
+                       <input type = "text" class = "inputBox" name = "CarrierId"
+                          formControlName="CarrierId">
+                    </div> 
+                </form>
+             </div>
+             <div style="margin-top: 15px;">
+                <p class="label-1" style="margin-left: 2.7%;">Priority</p>
+                <form class="radio-form">
+                    <div>
+                      <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
+                      <label for="html" class="radio-label">Primary</label>
+                    </div>
+                    <div>
+                      <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
+                      <label for="css" class="radio-label">Secondary</label>
+                    </div>
+                    <div>
+                      <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
+                      <label for="javascript" class="radio-label">Tertiary</label>
+                    </div>
+                  </form>
+             </div>
+             <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
+                <label for="Adjuster" class="label-1">Adjuster</label><br>
+                  <select  class="inputBox">
+                    <option value="" disabled selected>Select Adjuster</option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+            </div>
+            <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
+                <label for="Payer" class="label-1">Payer</label><span style="color: red;">*</span>
+                  <select  class="inputBox">
+                    <option value="" disabled selected>Search Payer</option>
+                    <option ng-repeat="x in names">ABC</option>
+                    <option ng-repeat="x in names">EFG</option>
+                    <option ng-repeat="x in names">HIJ</option>
+                </select>
+            </div>
+        </div>
+        <p class="title-2">Financial Status</p>
+    <div class="compensation-tab-cont">
+        <div class="content-container-1">
+            <div style="width: 100%;">
+                <form class="group-1" style="margin-bottom: 30px;">
+                    <div class="sub-inp-cont">
+                    <label for="Policy Amount" class="label-1">Policy Amount</label><br>
+                   <input type = "text" class = "inputBox" name = "CarrierCase"
+                      formControlName="CarrierCase" placeholder="$$$">
+                    </div>
+                    <div class="sub-inp-cont">
+                        <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
+                       <input type = "text" class = "inputBox" name = "CarrierId"
+                          formControlName="CarrierId" placeholder="$$$">
+                    </div>               
+                        </form>
+                    </div>  
+                        </div>
+                        <div class="btn-cont-1">
+                            <button class="btn-cancel" mat-dialog-close>Cancel</button>
+                            <button class="btn-update">Update Info</button>
+                        </div>
+                    </div>
+                    </div>  
+                     <!-- ******************************Commercial Form************************************ -->  
+                    <div class="compensation-tab-cont" *ngIf="tab==='Commercial'">
+                        <div class="content-container-1">
+                             <div style="width: 100%">
+                                <form class="group-1">
+                                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                                        <label for="Effective" class="label-1">Effective From</label><br>
+                                          <select  class="inputBox">
+                                            <option value="" disabled selected>mm/dd/yyyy</option>
+                                            <option ng-repeat="x in names">ABC</option>
+                                            <option ng-repeat="x in names">EFG</option>
+                                            <option ng-repeat="x in names">HIJ</option>
+                                        </select>
+                                    </div>
+                                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                                    <label for="Effective from" class="label-1">Effective From</label>
+                                      <select  class="inputBox">
+                                        <option value="" disabled selected>mm/dd/yyyy</option>
+                                        <option ng-repeat="x in names">ABC</option>
+                                        <option ng-repeat="x in names">EFG</option>
+                                        <option ng-repeat="x in names">HIJ</option>
+                                    </select>
+                                    </div>
+                                </form>
+                             </div>
+                             <div style="width: 100%">
+                                <form class="group-1">
+                                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                                        <label for="relationship" class="label-1">Relationship to Insured</label>
+                                          <select  class="inputBox">
+                                            <option value="" disabled selected>Select Relationship</option>
+                                            <option ng-repeat="x in names">ABC</option>
+                                            <option ng-repeat="x in names">EFG</option>
+                                            <option ng-repeat="x in names">HIJ</option>
+                                        </select>
+                                    </div>
+                                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                                    <label for="Status" class="label-1">Status</label>
+                                      <select  class="inputBox">
+                                        <option value="" disabled selected>Select Status</option>
+                                        <option ng-repeat="x in names">ABC</option>
+                                        <option ng-repeat="x in names">EFG</option>
+                                        <option ng-repeat="x in names">HIJ</option>
+                                    </select>
+                                    </div>
+                                </form>
+                             </div>
+                             <div style="width: 100%;">
+                                <form class="group-1">
+                                    <div class="sub-inp-cont">
+                                    <label for="insurance" class="label-1">Insurance Id</label><br>
+                                   <input type = "text" class = "inputBox" name = "insurance"
+                                      formControlName="city">
+                                    </div>
+                                    <div class="sub-inp-cont">
+                                        <label for="group" class="label-1">Group Id</label><br>
+                                       <input type = "text" class = "inputBox" name = "group"
+                                          formControlName="group">
+                                    </div>          
+                                </form>
+                             </div>     
+                             <div style="margin-top: 15px;">
+                                <p class="label-1" style="margin-left: 2.7%;">Priority</p>
+                                <form class="radio-form">
+                                    <div>
+                                      <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
+                                      <label for="html" class="radio-label">Primary</label>
+                                    </div>
+                                    <div>
+                                      <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
+                                      <label for="css" class="radio-label">Secondary</label>
+                                    </div>
+                                    <div>
+                                      <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
+                                      <label for="javascript" class="radio-label">Tertiary</label>
+                                    </div>
+                                  </form>
+                             </div>                      
+                             <div class="sub-inp-cont" style="margin-top: 15px;">
+                                <label for="copay" class="label-1">Copay Amount</label><br>
+                               <input type = "text" class = "inputBox" name = "copay"
+                                  formControlName="copay">
+                            </div> 
+                            <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
+                                <label for="Payer" class="label-1">Payer</label><span style="color: red;">*</span>
+                                  <select  class="inputBox">
+                                    <option value="" disabled selected>Search Payer</option>
+                                    <option ng-repeat="x in names">ABC</option>
+                                    <option ng-repeat="x in names">EFG</option>
+                                    <option ng-repeat="x in names">HIJ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- *****************Financial Status**************************************** -->
+                        <p class="title-2">Financial Status</p>
+                        <div class="compensation-tab-cont">
+                            <div class="content-container-1">
+                                <div style="width: 100%;">
+                                    <form class="group-1" style="margin-bottom: 30px;">
+                                        <div class="sub-inp-cont">
+                                        <label for="Policy Amount" class="label-1">Policy Amount</label><br>
+                                       <input type = "text" class = "inputBox" name = "CarrierCase"
+                                          formControlName="CarrierCase" placeholder="$$$">
+                                        </div>
+                                        <div class="sub-inp-cont">
+                                            <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
+                                           <input type = "text" class = "inputBox" name = "CarrierId"
+                                              formControlName="CarrierId" placeholder="$$$">
+                                        </div>               
+                                    </form>
+                                 </div>  
+                                </div>
+                                <div class="btn-cont-1">
+                                    <button class="btn-cancel" mat-dialog-close>Cancel</button>
+                                    <button class="btn-update">Update Info</button>
+                                </div>
+                             </div>
+                            </div>
+                            <!-- ********************************Self Pay Form******************************************* -->
+                            <div class="compensation-tab-cont" *ngIf="tab==='Self Pay'">
+                                <div class="content-container-1">
+                                    <div style="width: 100%;">
+                                        <form class="group-1" style="margin-bottom: 30px;">
+                                            <div class="sub-inp-cont">
+                                            <label for="amount" class="label-1">Self Pay Amount</label><br>
+                                           <input type = "text" class = "inputBox" name = "amount"
+                                              formControlName="amount">
+                                            </div>              
+                                        </form>
+                                     </div>  
+                                    </div>
+                                    <div class="btn-cont-1">
+                                        <button class="btn-cancel" mat-dialog-close>Cancel</button>
+                                        <button class="btn-update">Update Info</button>
+                                    </div>
+                                </div>

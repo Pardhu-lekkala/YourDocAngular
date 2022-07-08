@@ -1,0 +1,102 @@
+.insurance-head-1{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    color: #222222;
+}
+
+.card-cont{
+    background-color: transparent;
+    border: 1px solid #CACACA;
+    border-left:  #00C16E 4px solid ;
+}
+
+.footer-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #EFF3FB;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000000;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.address-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.block-1{
+    display: flex;
+    flex-direction: row;
+}
+
+.address-detail-cont{
+    width: 55%;
+}
+
+.address{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+}
+
+.ins-amount-cont{
+    width: 79px;
+    height: 32px;
+    background: #E5E9F6;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.ins-amount{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #3F4F79;
+    margin: auto;
+}
+
+.info-cont{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+}
+
+.block-cont{
+    margin-right: 10%;
+}
+
+.heading-1{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #3C3C3C;
+}
+
+.value-1{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #222222;
+}

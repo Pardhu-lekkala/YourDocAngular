@@ -1,0 +1,116 @@
+<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+<div class="main-cont">
+    <div class="nav-cont">
+        <div class="search-cont">
+            <img src="assets/search.svg" class="search-icon">
+            <input placeholder="Search Patient name/ ID" class="input-box" style="outline:none !important"/>
+        </div>
+        <div class="icon-cont">
+            <img src="assets/info.svg" class="nav-icon">
+            <img src="assets/saveIcon.svg" class="nav-icon">
+            <img src="assets/insight.svg" class="nav-icon">
+            <img src="assets/messaging.svg" class="nav-icon">
+            <ngx-avatar name="John Doe" size=25></ngx-avatar>
+            <p class="prof-name">Change Design</p>
+            <img src="assets/dropdown.svg" class="nav-icon">
+
+        </div>
+    </div>
+    <div class="heading-cont">
+        <h1 class="head-1">Patients Profile</h1>
+    </div>
+    <div class="profile-cont">
+        <div class="profile-detail-cont">
+            <div class="profile-img-cont">
+                <ngx-avatar name="John Doe" size="60"></ngx-avatar>
+            </div>
+            <div class="profile-content-cont">
+                <p class="head-2" style="margin: 0px !important;">Sudarshan, test - 23 year(s) old</p>
+                <div class="id-cont">
+                <p class="profile-id" style="margin: 0px !important">Y210643722_1</p>
+                </div>
+            </div>
+        </div>
+        <div style="margin-right: 10%;margin-top: 1%;width: 10%;">
+            <label class="para-1">Episode name</label>
+            <div class="dropdown-cont">
+                <input placeholder="Other / Slip and Fall / DOA: 08/04/2018" style="width: 220px;height: 30px"/>
+            </div>
+        </div>
+    </div>
+      
+    <div class="tabs-cont">
+        <p (click)="workUnderProgress('Episode Activity Statement')" [style.color]="tab==='Episode Activity Statement'? '#5C87D9': '#707375'" style="margin-left: 3px;">Episode Activity Statement</p>
+        <p (click)="getDemographics('Demographics')" [style.color]="tab==='Demographics'? '#5C87D9': '#707375'">Demographics</p>
+        <p (click)="workUnderProgress('Surgery')" [style.color]="tab==='Surgery'? '#5C87D9': '#707375'">Surgery</p>
+        <p (click)="workUnderProgress('Documents')" [style.color]="tab==='Documents'? '#5C87D9': '#707375'">Documents</p>
+        <p (click)="workUnderProgress('Case Notes')" [style.color]="tab==='Case Notes'? '#5C87D9': '#707375'">Case Notes</p>
+        <p (click)="workUnderProgress('Care Team')" [style.color]="tab==='Care Team'? '#5C87D9': '#707375'">Care Team</p>
+        <p (click)="workUnderProgress('Authorization')" [style.color]="tab==='Authorization'? '#5C87D9': '#707375'">Authorization</p>
+        <p (click)="workUnderProgress('Ledger')" [style.color]="tab==='Ledger'? '#5C87D9': '#707375'">Ledger</p>
+        <p (click)="workUnderProgress('Episode Body Parts')" [style.color]="tab==='Episode Body Parts'? '#5C87D9': '#707375'">Episode Body Parts</p>
+        <p (click)="workUnderProgress('Implantable Device')" [style.color]="tab==='Implantable Device'? '#5C87D9': '#707375'">Implantable Device</p>
+        <p (click)="workUnderProgress('Amendments')" [style.color]="tab==='Amendments'? '#5C87D9': '#707375'">Amendments</p>
+    </div>
+    <hr class="hr-line"/>
+    
+    <!-- /******************************MAIN CONTAINER TWO**************************************/ -->
+    <div class="main-cont-2">
+        <div class="side-bar-cont">
+            <div class="side-inp-cont">
+                <img src="assets/search.svg" class="search-icon"/>
+                <input placeholder="Search" class="inp-2" style="outline:none !important;border: none !important;"/>
+            </div>
+            <div class="side-tabs-cont">
+                <a class="select-pad" (click)="getSideTab('Basic details')" [ngClass]="sideTab==='Basic details'? 'tab-color': 'margin-css'">Basic details</a>
+                <a class="select-pad" (click)="getSideTab('Contact details')" [ngClass]="sideTab==='Contact details'? 'tab-color': ''">Contact details</a>
+                <a class="select-pad" (click)="getSideTab('Preferred pharmacy')" [ngClass]="sideTab==='Preferred pharmacy'? 'tab-color': ''">Preferred pharmacy</a>
+                <a class="select-pad" (click)="getSideTab('Patient allergies')" [ngClass]="sideTab==='Patient allergies'? 'tab-color': ''">Patient allergies</a>
+                <a class="select-pad" (click)="getSideTab('Insurance')" [ngClass]="sideTab==='Insurance'? 'tab-color': ''">Insurance</a>
+                <a class="select-pad" (click)="getSideTab('Emergency Contact')" [ngClass]="sideTab==='Emergency Contact'? 'tab-color': ''">Emergency Contact</a>
+                <a class="select-pad" (click)="getSideTab('Alerts')" [ngClass]="sideTab==='Alerts'? 'tab-color': ''">Alerts</a>
+                <a class="select-pad" (click)="getSideTab('Referral source')" [ngClass]="sideTab==='Referral source'? 'tab-color': ''">Referral source</a>
+                <a class="select-pad" (click)="getSideTab('Originated source')" [ngClass]="sideTab==='Originated source'? 'tab-color': ''">Originated source</a>
+                <a class="select-pad" (click)="getSideTab('Legal represntative')" [ngClass]="sideTab==='Legal represntative'? 'tab-color': ''">Legal represntative</a>
+                <a class="select-pad" (click)="getSideTab('Patient advocate')" [ngClass]="sideTab==='Patient advocate'? 'tab-color': ''">Patient advocate</a>
+                <a class="select-pad" (click)="getSideTab('Employer')" [ngClass]="sideTab==='Employer'? 'tab-color': ''">Employer</a>
+                <a class="select-pad" (click)="getSideTab('IPA')" [ngClass]="sideTab==='IPA'? 'tab-color': ''">IPA</a>
+                <a class="select-pad" (click)="getSideTab('Past surgical history')" [ngClass]="sideTab==='Past surgical history'? 'tab-color': ''">Past surgical history</a>
+                <a class="select-pad"  (click)="getSideTab('Case Notes')"style="margin-bottom: 3%;" [ngClass]="sideTab==='Case Notes'? 'tab-color': ''">Case Notes</a>
+            </div>
+        </div>
+        <div class="data-cont">
+            <h1 *ngIf="sideTab!=='Insurance'" style="margin-left: 15%;margin-top: 15%;">{{msg}}</h1>
+            <div style="margin-left: 2%;margin-right: 4%;" *ngIf="sideTab==='Insurance'">
+                <app-insurance-tables></app-insurance-tables>
+            </div>
+        </div>
+        <div class="right-cont">
+           <div>
+            <button class="btn-cont-1" (click)="openDialog()">Add New Insurance</button>
+           </div>
+           <div>
+            <button class="btn-cont-2">Print Demographics</button>
+           </div>
+           <div class="content-cont-1">
+                <p class="head-3">Created by<br/>
+                <span class="id-name">Sampath Sharma</span>
+            </p>
+            <div class="content-cont-1" style="margin-top: 5%;">
+                <p class="head-3">Created date<br/>
+                <span class="id-name">12th May, 2020</span>
+            </p>
+            <div class="content-cont-1" style="margin-top: 5%;">
+                <p class="head-3">Last Modified by<br/>
+                <span class="id-name">Sampath Singh</span>
+            </p>
+           </div>
+           <div class="content-cont-1" style="margin-top: 5%;">
+            <p class="head-3">Last modified date<br/>
+            <span class="id-name">16th May, 2020</span>
+        </p>
+       </div>
+        </div>
+    </div>
+
+</div>
