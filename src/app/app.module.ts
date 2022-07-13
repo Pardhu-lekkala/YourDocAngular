@@ -13,14 +13,16 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog'; 
 import { InsuranceTablesComponent } from './insurance-tables/insurance-tables.component';
 import { InsuranceDailogComponent } from './insurance-dailog/insurance-dailog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     InsuranceComponent,
     InsuranceTablesComponent,
-    InsuranceDailogComponent
+    InsuranceDailogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     MatCardModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MatMenuModule
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

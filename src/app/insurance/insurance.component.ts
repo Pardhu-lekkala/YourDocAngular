@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { InsuranceDailogComponent } from '../insurance-dailog/insurance-dailog.component';
+import { MasterService } from '../master.service';
  
 
 
@@ -13,7 +14,8 @@ export class InsuranceComponent implements OnInit {
   msg:string
   tab:string
   sideTab:string
-  constructor(public dialog: MatDialog) { }
+  insuranceDetails:any=[]
+  constructor(public dialog: MatDialog,private service:MasterService) { }
 
   openDialog() {
     const dialogRef = this.dialog.open(InsuranceDailogComponent,{height:'100vh',width:'50vw',position: { right: '0'}});
@@ -42,7 +44,13 @@ export class InsuranceComponent implements OnInit {
     return this.msg,this.sideTab
   }
 
+  getInsuranceDetails(data:any){
+    this.insuranceDetails=data
+    console.log(this.insuranceDetails,"data from child")
+  }
+
   ngOnInit(): void {
+    
   }
 
 }

@@ -1,93 +1,124 @@
 <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <div class="insurance-main-cont">
     <h1 class="insurance-head-1">Insurance associated with this case</h1>
     <!-- /***********************Table One***********************************-->
-    <mat-card class="card-cont">
+    <div *ngFor="let details of insuranceDetails;let i = index;">
+    <mat-card class="card-cont" *ngIf="details.IsAssociatedToEpisode===true">
         <div class="address-cont">
             <div class="block-1">
                 <div class="address-detail-cont">
-                    <h1 class="address">NY Black car operators fund 1082,14th Hwy S, Maso</h1>
+                    <h1 class="address">{{details.Address1}}<br>{{details.Address2}}</h1>
                 </div>
-                <div class="ins-amount-cont">
-                    <h1 class="ins-amount">$2000</h1>
+                <div class="ins-amount-cont" style="margin-left: 30px;">
+                    <h1 class="ins-amount">{{details.PolicyAmount-details.ApproxSpentAmount}}</h1>
                 </div>
             </div>
-            <div class="block-2">
-                <img src="/assets/moreInfo.svg" alt="..." style="cursor: Pointer;"/>
+            <div class="block-2" style="cursor: pointer;">
+                <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu"/>
             </div>
+            <!-- <button >Before</button> -->
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;">Edit</button>
+            <button mat-menu-item>Delete</button>
+            <button mat-menu-item>Disassociate to Episode</button>
+            </mat-menu>
+            
         </div>
         <div class="info-cont">
             <div class="block-cont">
                 <p class="heading-1">Copay Amount</p>
-                <p class="value-1">{{insuranceData[0].copyAmount}}</p>
+                <p class="value-1">{{details.Amount?details.Amount:'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Relation</p>
-                <p class="value-1">{{insuranceData[0].Relation}}</p>
+                <p class="value-1">{{details.name?details.name:'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Effective from</p>
-                <p class="value-1">{{insuranceData[0].EffectiveFrom}}</p>
+                <p class="value-1">{{details.EffectiveFrom?details.EffectiveFrom:'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Expiration date</p>
-                <p class="value-1">{{insuranceData[0].ExpirationDate}}</p>
+                <p class="value-1">{{details.ExpirationDate?details.ExpirationDate:'-'}}</p>
             </div>
         </div>
-        <mat-card-footer class="footer-card">View more info</mat-card-footer>
-      </mat-card>
+        <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="status && details.Id===selectedCardId">
+            <div class="block-cont" style="margin-right: 8% ;">
+                <p class="heading-1">Carrier case #</p>
+                <p class="value-1">{{details.CarrierCaseNumber?details.CarrierCaseNumber:'-'}}</p>
+            </div>
+            <div class="block-cont" style="margin-right: 8% ;">
+                <p class="heading-1">WCB #</p>
+                <p class="value-1">{{details.Wcb?details.Wcb:'-'}}</p>
+            </div>
+            <div class="block-cont" style="margin-right: 8% ;">
+                <p class="heading-1">Group ID</p>
+                <p class="value-1">{{details.GroupId?details.GroupId:"-"}}</p>
+            </div>
+        </div>
+        <mat-card-footer class="footer-card" (click)="clickEvent(details.Id)">{{status && details.Id===selectedCardId?'View less info':'View more info'}}</mat-card-footer>
+    </mat-card>
+</div>
       <br>
-
       <!-- /***********************Table Two***********************************-->
       <h1 class="insurance-head-1">Additional insurance for patient</h1>
-      <mat-card class="card-cont" style="margin-bottom: 5%;">
+      <div *ngFor="let details of insuranceDetails">
+      <mat-card class="card-cont" style="margin-bottom: 2%;" *ngIf="details.IsAssociatedToEpisode===false">
         <div class="address-cont">
             <div class="block-1">
                 <div class="address-detail-cont">
-                    <h1 class="address">NY Black car operators fund 1082,14th Hwy S, Maso</h1>
+                    <h1 class="address">{{details.Address1}}<br>{{details.Address2}}</h1>
                 </div>
-                <div class="ins-amount-cont">
-                    <h1 class="ins-amount">$2000</h1>
+                <div class="ins-amount-cont" style="margin-left: 30px;">
+                    <h1 class="ins-amount">{{details.PolicyAmount-details.ApproxSpentAmount}}</h1>
                 </div>
             </div>
-            <div class="block-2">
-                <img src="/assets/moreInfo.svg" alt="..." style="cursor: Pointer;"/>
+            <div class="block-2" style="cursor: pointer;">
+                <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu"/>
             </div>
+            <!-- <button >Before</button> -->
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;">Edit</button>
+            <button mat-menu-item>Delete</button>
+            <button mat-menu-item>Disassociate to Episode</button>
+            </mat-menu>
         </div>
         <div>
         <div class="info-cont">
-            <div class="block-cont" >
+            <div class="block-cont">
                 <p class="heading-1">Copay Amount</p>
-                <p class="value-1">{{insuranceData[0].copyAmount}}</p>
+                <p class="value-1">{{details.Amount?details.Amount:'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Relation</p>
-                <p class="value-1">{{insuranceData[0].Relation}}</p>
+                <p class="value-1">{{details.name?details.name:'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Effective from</p>
-                <p class="value-1">{{insuranceData[0].EffectiveFrom}}</p>
+                <p class="value-1">{{details.EffectiveFrom?details.EffectiveFrom:'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Expiration date</p>
-                <p class="value-1">{{insuranceData[0].ExpirationDate}}</p>
+                <p class="value-1">{{details.ExpirationDate?details.ExpirationDate:'-'}}</p>
             </div>
             </div>
-            <div style="display: flex;flex-direction: row;margin-top: 1%;">
-            <div class="block-cont">
+            <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="status && details.Id===selectedCardId">
+            <div class="block-cont" style="margin-right: 8% ;">
                 <p class="heading-1">Carrier case #</p>
-                <p class="value-1">{{insuranceData[0].CarrierCaseId}}</p>
+                <p class="value-1">{{details.CarrierCaseNumber?details.CarrierCaseNumber:'-'}}</p>
             </div>
-            <div class="block-cont">
+            <div class="block-cont" style="margin-right: 8% ;">
                 <p class="heading-1">WCB #</p>
-                <p class="value-1">{{insuranceData[0].WCB}}</p>
+                <p class="value-1">{{details.Wcb?details.Wcb:'-'}}</p>
             </div>
-            <div class="block-cont">
+            <div class="block-cont" style="margin-right: 8% ;">
                 <p class="heading-1">Group ID</p>
-                <p class="value-1">{{insuranceData[0].GroupId}}</p>
+                <p class="value-1">{{details.GroupId?details.GroupId:"-"}}</p>
             </div>
         </div>
     </div>
-        <mat-card-footer class="footer-card">View less info</mat-card-footer>
+    <mat-card-footer class="footer-card" (click)="clickEvent(details.Id)">{{status && details.Id===selectedCardId?'View less info':'View more info'}}</mat-card-footer>
       </mat-card>
+    </div>
 </div>

@@ -5,7 +5,7 @@
             <img src="assets/search.svg" class="search-icon">
             <input placeholder="Search Patient name/ ID" class="input-box" style="outline:none !important"/>
         </div>
-        <div class="icon-cont">
+        <div class="icon-cont" style="margin-right: 0 !important;">
             <img src="assets/info.svg" class="nav-icon">
             <img src="assets/saveIcon.svg" class="nav-icon">
             <img src="assets/insight.svg" class="nav-icon">
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div style="margin-right: 10%;margin-top: 1%;width: 10%;">
+        <div style="margin-right: 8%;margin-top: 1%;width: 10%;">
             <label class="para-1">Episode name</label>
             <div class="dropdown-cont">
                 <input placeholder="Other / Slip and Fall / DOA: 08/04/2018" style="width: 220px;height: 30px"/>
@@ -41,7 +41,7 @@
       
     <div class="tabs-cont">
         <p (click)="workUnderProgress('Episode Activity Statement')" [style.color]="tab==='Episode Activity Statement'? '#5C87D9': '#707375'" style="margin-left: 3px;">Episode Activity Statement</p>
-        <p (click)="getDemographics('Demographics')" [style.color]="tab==='Demographics'? '#5C87D9': '#707375'">Demographics</p>
+        <p (click)="getDemographics('Demographics')" [style.color]="tab==='Demographics'? '#5C87D9': '#5C87D9'">Demographics</p>
         <p (click)="workUnderProgress('Surgery')" [style.color]="tab==='Surgery'? '#5C87D9': '#707375'">Surgery</p>
         <p (click)="workUnderProgress('Documents')" [style.color]="tab==='Documents'? '#5C87D9': '#707375'">Documents</p>
         <p (click)="workUnderProgress('Case Notes')" [style.color]="tab==='Case Notes'? '#5C87D9': '#707375'">Case Notes</p>
@@ -82,7 +82,7 @@
         <div class="data-cont">
             <h1 *ngIf="sideTab!=='Insurance'" style="margin-left: 15%;margin-top: 15%;">{{msg}}</h1>
             <div style="margin-left: 2%;margin-right: 4%;" *ngIf="sideTab==='Insurance'">
-                <app-insurance-tables></app-insurance-tables>
+                <app-insurance-tables (getInsuranceDetails)="getInsuranceDetails($event)"></app-insurance-tables>
             </div>
         </div>
         <div class="right-cont">
@@ -94,20 +94,20 @@
            </div>
            <div class="content-cont-1">
                 <p class="head-3">Created by<br/>
-                <span class="id-name">Sampath Sharma</span>
+                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0].CreatedByMember?insuranceDetails[0].CreatedByMember:''}}</span>
             </p>
             <div class="content-cont-1" style="margin-top: 5%;">
                 <p class="head-3">Created date<br/>
-                <span class="id-name">12th May, 2020</span>
+                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0].CreatedDate?insuranceDetails[0].CreatedDate:''}}</span>
             </p>
             <div class="content-cont-1" style="margin-top: 5%;">
                 <p class="head-3">Last Modified by<br/>
-                <span class="id-name">Sampath Singh</span>
+                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0].ModifiedByMember?insuranceDetails[0].ModifiedByMember:''}}</span>
             </p>
            </div>
            <div class="content-cont-1" style="margin-top: 5%;">
             <p class="head-3">Last modified date<br/>
-            <span class="id-name">16th May, 2020</span>
+            <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails?insuranceDetails[0].ModifiedDate:''}}</span>
         </p>
        </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { MasterService } from '../master.service';
 
 @Component({
@@ -8,17 +8,34 @@ import { MasterService } from '../master.service';
 })
 export class InsuranceTablesComponent implements OnInit {
 
-  insuranceData:any
+  insuranceData:any=[]
+  insuranceDetails:any=[]
+  status: boolean = false;
+  selectedCardId:number;
+  masterData=JSON.parse(window.localStorage['masterData']);
+  @Output() getInsuranceDetails:EventEmitter<any>=new EventEmitter()
   constructor(private service:MasterService) { 
-  // this.inputArray=this.service.getInsuranceData()
-  //   console.log(this.service.getInsuranceData(),"data in ins table")
+  }
+
+  clickEvent(id:any){
+    this.selectedCardId=id
+    this.status = !this.status
+    console.log(id,"select id")
   }
   
   ngOnInit(): void {
-    this.service.getInsuranceData()
-    .subscribe(response => {
-      this.insuranceData = response;
-      console.log(this.insuranceData,"insurance data in child")
-    });
+    this.service.getInsuranceDatas().then(resp=>{
+      this.insuranceData=resp
+      console.log(this.insuranceData,"resp child")
+    })
+
+    this.service.getInsuranceDetails().then(resp=>{
+      resp.forEach((item:any)=> {
+        item.name=this.masterData.find((group:any)=>group.GroupId===21 && group.Id===item.InsuredRelationshipTypeId)?.Name
+      });
+      this.insuranceDetails=resp
+      this.getInsuranceDetails.emit(resp)
+      console.log(this.insuranceDetails,"ins details in child")
+    })
   }
 }
