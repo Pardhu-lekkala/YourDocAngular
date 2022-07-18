@@ -89,13 +89,15 @@
                 <option *ngFor="let adjuster of adjusterData">{{adjuster.PartnerOrganizationName+","+adjuster.AddressLine1+","+adjuster.AddressLine2+","+adjuster.City+","+adjuster.State+","+adjuster.ZipCode+","+adjuster.ContactPhone+","+adjuster.PhoneNumber}}</option>
             </select>
         </div>
+        <div class="sub-inp-cont" style="margin-top: 2%;">
+            <label for="otherInfo" class="label-1">Payer</label><span style="color: red;">*</span><br>
+           <input type = "search" class = "inputBox" name = "otherInfo"[(ngModel)]='tabFields.payer'  (ngModelChange)="onDataChange($event,'payer')">
+        </div>   
         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
-            <label for="Payer" class="label-1">Payer</label><span style="color: red;">*</span>
+            <label for="Supervisor" class="label-1">Employer</label><br>
               <select  class="inputBox">
-                <option value="" disabled selected>Search Payer</option>
-                <option ng-repeat="x in names">ABC</option>
-                <option ng-repeat="x in names">EFG</option>
-                <option ng-repeat="x in names">HIJ</option>
+                <option value="" disabled selected>Select Employer</option>
+                <option *ngFor="let supervisor of supervisorData">{{supervisor.FirstName+supervisor.LastName}}</option>
             </select>
         </div>
         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">

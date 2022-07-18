@@ -11,7 +11,7 @@ export class InsuranceDailogComponent implements OnInit {
   tab:any
   editTableId:any
   emailTem:any
-  masterData:any
+  masterData=JSON.parse(window.localStorage['masterData']);
   statusTypes:any=[]
   relationshipTypes:any=[]
   stateTypes:any=[]
@@ -153,7 +153,6 @@ export class InsuranceDailogComponent implements OnInit {
     this.getRelationshipData()
     this.getStateData()
     this.getPriorityData()
-    this.masterData=JSON.parse(window.localStorage['masterData']);
     this.editTableId=this.data.tableId
     if(this.data.editTabData==="Worker's Compensation"){
       this.tab="Worker’s Compensation"
