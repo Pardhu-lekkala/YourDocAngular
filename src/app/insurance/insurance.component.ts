@@ -18,8 +18,7 @@ export class InsuranceComponent implements OnInit {
   constructor(public dialog: MatDialog,private service:MasterService) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open(InsuranceDailogComponent,{height:'100vh',width:'50vw',position: { right: '0'}});
-
+    const dialogRef = this.dialog.open(InsuranceDailogComponent,{height:'100vh',width:'50vw',position: { right: '0'},data: {editTabData: "Worker's Compensation",isEditMode:false}});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -41,6 +40,7 @@ export class InsuranceComponent implements OnInit {
   getSideTab(tabData:string){
     this.sideTab=tabData
     this.msg="work under maintenance"
+    console.log(this.sideTab,"side tab")
     return this.msg,this.sideTab
   }
 

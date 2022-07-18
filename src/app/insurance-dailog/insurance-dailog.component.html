@@ -17,99 +17,76 @@
     <div class="compensation-tab-cont" *ngIf="tab==='Worker’s Compensation'">
     <div class="content-container-1">
         <div style="width:100% ;">
-            <form class="group-1">
+            <div class="group-1">
                 <div class="sub-inp-cont">
                 <label for="wcb" class="label-1">WCB #</label><br>
-               <input type = "text" class = "inputBox" name = "wcb"
-                  formControlName="wcb">
+               <input type = "text" class = "inputBox" name = "wcb" [(ngModel)]='tabFields.wcb' (ngModelChange)="onDataChange($event,'wcb')">
                 </div>
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <div ng-app="myApp" ng-controller="myCt" class="sub-inp-cont">
                 <label for="Relationship" class="label-1">Relationship to be Insured</label><span style="color: red;">*</span><br>
-               <!-- <input type = "text" class = "inputBox" name="Relationship" 
-                  placeholder = "Select Relationship " formControlName = "passwd"> -->
-                  <select  class="inputBox">
+                  <select  class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured' (ngModelChange)="onDataChange($event,'relation')">
                     <option value="" disabled selected>Select Relationship</option>
-                    <option ng-repeat="x in names">ABC</option>
-                    <option ng-repeat="x in names">EFG</option>
-                    <option ng-repeat="x in names">HIJ</option>
+                    <option ng-repeat="x in names" *ngFor="let relation of relationshipTypes" [value]="relation.Name">{{relation.Name}}</option>
                 </select>
                 </div>
-            </form>
+            </div>
          </div>
          <div style="width: 100%">
-            <form class="group-1">
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+            <div class="group-1">
+                <div ng-app="myApp" ng-controller="my" class="sub-inp-cont">
                     <label for="status" class="label-1">Status</label><br>
-                      <select  class="inputBox">
+                      <select  class="inputBox" [(ngModel)]='tabFields.status' (ngModelChange)="onDataChange($event,'status')">
                         <option value="" disabled selected>Select Status</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
+                        <option *ngFor="let status of statusTypes" [value]="status.Name">{{status.Name}}</option>
                     </select>
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                 <label for="state" class="label-1">State</label><span style="color: red;">*</span><br>
-                  <select  class="inputBox">
+                  <select  class="inputBox" [(ngModel)]='tabFields.state' (ngModelChange)="onDataChange($event,'state')">
                     <option value="" disabled selected>Select State</option>
-                    <option ng-repeat="x in names">ABC</option>
-                    <option ng-repeat="x in names">EFG</option>
-                    <option ng-repeat="x in names">HIJ</option>
+                    <option *ngFor="let state of stateTypes" [value]="state.Name">{{state?.Name}}</option>
                 </select>
                 </div>
-            </form>
+            </div>
          </div>
          <div style="width: 100%;">
-            <form class="group-1">
+            <div class="group-1">
                 <div class="sub-inp-cont">
                 <label for="CarrierCase" class="label-1">Carrier Case #</label><br>
-               <input type = "text" class = "inputBox" name = "CarrierCase"
-                  formControlName="CarrierCase">
+               <input type = "text" class = "inputBox" name = "CarrierCase" [(ngModel)]='tabFields.carrierCase' (ngModelChange)="onDataChange($event,'carrierCase')">
                 </div>
                 <div class="sub-inp-cont">
                     <label for="CarrierId" class="label-1">Carrier Id #</label><br>
-                   <input type = "text" class = "inputBox" name = "CarrierId"
-                      formControlName="CarrierId">
+                   <input type = "text" class = "inputBox" name = "CarrierId" [(ngModel)]='tabFields.carrierId' (ngModelChange)="onDataChange($event,'carrierId')">
                 </div>               
-            </form>
+            </div>
          </div>
          <div style="width: 100%;">
-            <form class="group-1">
+            <div class="group-1">
                 <div class="sub-inp-cont">
                 <label for="city" class="label-1">City</label><br>
-               <input type = "text" class = "inputBox" name = "city"
-                  formControlName="city">
+               <input type = "text" class = "inputBox" name = "city" [(ngModel)]='tabFields.city' (ngModelChange)="onDataChange($event,'city')">
                 </div>
                 <div class="sub-inp-cont">
                     <label for="otherInfo" class="label-1">Other Information</label><br>
-                   <input type = "text" class = "inputBox" name = "otherInfo"
-                      formControlName="otherInfo">
+                   <input type = "text" class = "inputBox" name = "otherInfo"[(ngModel)]='tabFields.otherInfo'  (ngModelChange)="onDataChange($event,'otherInfo')">
                 </div>               
-            </form>
+            </div>
          </div>
          <div style="margin-top: 15px;">
             <p class="label-1" style="margin-left: 2.7%;">Priority</p>
-            <form class="radio-form">
-                <div>
-                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
-                  <label for="html" class="radio-label">Primary</label>
+            <div class="radio-form">
+                <div *ngFor="let priority of priorityTypes">
+                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;" [value]='priority.Name' [checked]="priority.Name===tabFields.priority" (valueOnChange)="onDataChange($event,'priority')">
+                  <label for="html" class="radio-label">{{priority.Name}}</label>
                 </div>
-                <div>
-                  <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
-                  <label for="css" class="radio-label">Secondary</label>
-                </div>
-                <div>
-                  <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
-                  <label for="javascript" class="radio-label">Tertiary</label>
-                </div>
-              </form>
+            </div>
          </div>
          <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
             <label for="Adjuster" class="label-1">Adjuster</label><br>
               <select  class="inputBox">
                 <option value="" disabled selected>Select Adjuster</option>
-                <option ng-repeat="x in names">ABC</option>
-                <option ng-repeat="x in names">EFG</option>
-                <option ng-repeat="x in names">HIJ</option>
+                <option *ngFor="let adjuster of adjusterData">{{adjuster.PartnerOrganizationName+","+adjuster.AddressLine1+","+adjuster.AddressLine2+","+adjuster.City+","+adjuster.State+","+adjuster.ZipCode+","+adjuster.ContactPhone+","+adjuster.PhoneNumber}}</option>
             </select>
         </div>
         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
@@ -125,18 +102,14 @@
             <label for="Supervisor" class="label-1">Supervisor</label><br>
               <select  class="inputBox">
                 <option value="" disabled selected>Select Supervisor</option>
-                <option ng-repeat="x in names">ABC</option>
-                <option ng-repeat="x in names">EFG</option>
-                <option ng-repeat="x in names">HIJ</option>
+                <option *ngFor="let supervisor of supervisorData">{{supervisor.FirstName+supervisor.LastName}}</option>
             </select>
         </div>
         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
             <label for="HR" class="label-1">HR</label><br>
               <select  class="inputBox">
                 <option value="" disabled selected>Select HR</option>
-                <option ng-repeat="x in names">ABC</option>
-                <option ng-repeat="x in names">EFG</option>
-                <option ng-repeat="x in names">HIJ</option>
+                <option *ngFor="let hr of hrData">{{hr.FirstName+hr.LastName}}</option>
             </select>
         </div>
     </div>
@@ -149,39 +122,28 @@
 <div class="compensation-tab-cont" *ngIf="tab==='Liability'">
     <div class="content-container-1">
         <div style="width:100% ;">
-            <form class="group-1">
+            <div class="group-1">
                 <div class="sub-inp-cont">
-                <label for="Effective" class="label-1">Effective From</label><br>
-               <input type = "date" class = "inputBox" name = "wcb"
-                  formControlName="Effective" placeholder="mm/dd/yyyy">
+                    <label for="Effective" class="label-1">Effective From</label><br>
+                    <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveFrom' (ngModelChange)="onDataChange($event,'effectiveFrom')">
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                 <label for="Status" class="label-1">Status</label>
-                  <select  class="inputBox">
+                  <select  class="inputBox" [(ngModel)]='tabFields.status' (ngModelChange)="onDataChange($event,'status')">
                     <option value="" disabled selected>Select Status </option>
-                    <option ng-repeat="x in names">ABC</option>
-                    <option ng-repeat="x in names">EFG</option>
-                    <option ng-repeat="x in names">HIJ</option>
+                    <option *ngFor="let status of statusTypes">{{status.Name}}</option>
                 </select>
                 </div>
-            </form>
+            </div>
          </div>
          <div style="margin-top: 15px;">
             <p class="label-1" style="margin-left: 2.7%;">Priority</p>
-            <form class="radio-form">
-                <div>
-                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
-                  <label for="html" class="radio-label">Primary</label>
+            <div class="radio-form">
+                <div *ngFor="let priority of priorityTypes">
+                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;" [value]='priority.Name' [checked]="priority.Name===tabFields.priority" (valueOnChange)="onDataChange($event,'priority')">
+                  <label for="html" class="radio-label">{{priority.Name}}</label>
                 </div>
-                <div>
-                  <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
-                  <label for="css" class="radio-label">Secondary</label>
-                </div>
-                <div>
-                  <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
-                  <label for="javascript" class="radio-label">Tertiary</label>
-                </div>
-              </form>
+            </div>
          </div>
         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
             <label for="Payer" class="label-1">Payer</label>
@@ -202,122 +164,84 @@
 <div class="compensation-tab-cont" *ngIf="tab==='Auto Accident'">
     <div class="content-container-1">
         <div style="width:100% ;">
-            <form class="group-1">
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
-                    <label for="Claim" class="label-1">Claim #</label>
-                    <select  class="inputBox">
-                        <option value="" disabled selected>Select Status</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
-                    </select>
-                </div>
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="CarrierCase" class="label-1" >Cliam #</label><br>
+                   <input type = "text" class = "inputBox" name = "CarrierCase" [(ngModel)]='tabFields.claim' (ngModelChange)="onDataChange($event,'claim')">
+                    </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                     <label for="Relationship" class="label-1">Relationship to be Insured</label><span style="color: red;">*</span><br>
-                    <select  class="inputBox">
+                    <select  class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured' (ngModelChange)="onDataChange($event,'relation')">
                         <option value="" disabled selected>Select Relationship</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
+                        <option *ngFor="let relation of relationshipTypes">{{relation.Name}}</option>
                     </select>
                 </div>
-            </form>
+            </div>
          </div>
          <div style="width: 100%">
-            <form class="group-1">
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+            <div class="group-1">
+                <div class="sub-inp-cont">
                     <label for="Effective" class="label-1">Effective From</label><br>
-                      <select  class="inputBox">
-                        <option value="" disabled selected>mm/dd/yyyy</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
-                    </select>
+                    <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveFrom' (ngModelChange)="onDataChange($event,'effectiveFrom')">
                 </div>
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
-                <label for="Effective from" class="label-1">Effective From</label>
-                  <select  class="inputBox">
-                    <option value="" disabled selected>mm/dd/yyyy</option>
-                    <option ng-repeat="x in names">ABC</option>
-                    <option ng-repeat="x in names">EFG</option>
-                    <option ng-repeat="x in names">HIJ</option>
-                </select>
+                <div class="sub-inp-cont">
+                    <label for="Effective" class="label-1">Effective To</label><br>
+                    <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveTo' (ngModelChange)="onDataChange($event,'effectiveTo')">
                 </div>
-            </form>
+            </div>
          </div>
          <div style="width: 100%">
-            <form class="group-1">
+            <div class="group-1">
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                     <label for="Status" class="label-1">Status</label>
-                      <select  class="inputBox">
+                      <select  class="inputBox" [(ngModel)]='tabFields.status' (ngModelChange)="onDataChange($event,'Status')">
                         <option value="" disabled selected>Select Status</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
+                        <option *ngFor="let status of statusTypes">{{status.Name}}</option>
                     </select>
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                 <label for="state" class="label-1">State</label><span style="color: red;">*</span>
-                  <select  class="inputBox">
+                  <select  class="inputBox" [(ngModel)]='tabFields.state' (ngModelChange)="onDataChange($event,'state')">
                     <option value="" disabled selected>Select State</option>
-                    <option ng-repeat="x in names">ABC</option>
-                    <option ng-repeat="x in names">EFG</option>
-                    <option ng-repeat="x in names">HIJ</option>
+                    <option *ngFor="let state of stateTypes">{{state.Name}}</option>
                 </select>
                 </div>
-            </form>
+            </div>
          </div>
          <div style="width: 100%;">
-            <form class="group-1">
+            <div class="group-1">
                 <div class="sub-inp-cont">
                 <label for="Policy" class="label-1">Policy</label><br>
-               <input type = "text" class = "inputBox" name = "city"
-                  formControlName="city">
+               <input type = "text" class = "inputBox" name = "city" [(ngModel)]='tabFields.policy' (ngModelChange)="onDataChange($event,'policy')">
                 </div>
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
-                    <label for="city" class="label-1">City</label>
-                      <select  class="inputBox">
-                        <option value="" disabled selected>Select City</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
-                    </select>
-                </div>              
-            </form>
+                <div class="sub-inp-cont">
+                    <label for="city" class="label-1">City</label><br>
+                   <input type = "text" class = "inputBox" name = "city" [(ngModel)]='tabFields.city' (ngModelChange)="onDataChange($event,'city')">
+                </div>         
+            </div>
          </div>
          <div style="width: 100%;">
-            <form class="group-1">
+            <div class="group-1">
                 <div class="sub-inp-cont">
                 <label for="otherInfo" class="label-1">Other Information</label><br>
-               <input type = "text" class = "inputBox" name = "city"
-                  formControlName="city">
+               <input type = "text" class = "inputBox" name = "city" [(ngModel)]='tabFields.otherInfo' (ngModelChange)="onDataChange($event,'otherInfo')">
                 </div>
-            </form>
+            </div>
         </div>
          <div style="margin-top: 15px;">
             <p class="label-1" style="margin-left: 2.7%;">Priority</p>
-            <form class="radio-form">
-                <div>
-                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
-                  <label for="html" class="radio-label">Primary</label>
+            <div class="radio-form">
+                <div *ngFor="let priority of priorityTypes">
+                  <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;" [value]='priority.Name' [checked]="priority.Name===tabFields.priority" (ngValueChange)="onDataChange($event,'policy')">
+                  <label for="html" class="radio-label">{{priority.Name}}</label>
                 </div>
-                <div>
-                  <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
-                  <label for="css" class="radio-label">Secondary</label>
-                </div>
-                <div>
-                  <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
-                  <label for="javascript" class="radio-label">Tertiary</label>
-                </div>
-              </form>
+            </div>
          </div>
          <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
             <label for="Adjuster" class="label-1">Adjuster</label><br>
               <select  class="inputBox">
                 <option value="" disabled selected>Select Adjuster</option>
-                <option ng-repeat="x in names">ABC</option>
-                <option ng-repeat="x in names">EFG</option>
-                <option ng-repeat="x in names">HIJ</option>
+                <option *ngFor="let adjuster of adjusterData">{{adjuster.PartnerOrganizationName+","+adjuster.AddressLine1+","+adjuster.AddressLine2+","+adjuster.City+","+adjuster.State+","+adjuster.ZipCode+","+adjuster.ContactPhone+","+adjuster.PhoneNumber}}</option>
             </select>
         </div>
         <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
@@ -335,37 +259,34 @@
     <div class="compensation-tab-cont">
         <div class="content-container-1">
             <div style="width: 100%;">
-                <form class="group-1" style="margin-bottom: 30px;">
+                <div class="group-1" style="margin-bottom: 30px;">
                     <div class="sub-inp-cont">
                     <label for="Policy Amount" class="label-1">Policy Amount</label><br>
-                   <input type = "text" class = "inputBox" name = "CarrierCase"
-                      formControlName="CarrierCase" placeholder="$$$">
+                   <input type = "text" class = "inputBox" name = "CarrierCase" placeholder="$$$" [(ngModel)]="tabFields.policyAmount" (ngModelChange)="onDataChange($event,'policyAmount')">
                     </div>
                     <div class="sub-inp-cont">
                         <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
-                       <input type = "text" class = "inputBox" name = "CarrierId"
-                          formControlName="CarrierId" placeholder="$$$">
+                       <input type = "text" class = "inputBox" name = "CarrierId" placeholder="$$$" [(ngModel)]="tabFields.approxSpentAmount" (ngModelChange)="onDataChange($event,'approxAmount')">
                     </div>               
-                </form>
+                </div>
              </div>  
-    </div>
-    <div class="btn-cont-1">
-        <button class="btn-cancel" mat-dialog-close>Cancel</button>
-        <button class="btn-update">Update Info</button>
-    </div>
-</div>
-</div>
+            </div>
+            <div class="btn-cont-1">
+                <button class="btn-cancel" mat-dialog-close>Cancel</button>
+                <button class="btn-update">Update Info</button>
+            </div>
+        </div>
+        </div>
 <!-- ****************************Other Info Form******************************* -->
 <div class="compensation-tab-cont" *ngIf="tab==='Other'">
     <div class="content-container-1">
         <div style="width: 100%;">
-            <form class="group-1" style="margin-bottom: 30px;">
+            <div class="group-1" style="margin-bottom: 30px;">
                 <div class="sub-inp-cont">
                 <label for="Other Information" class="label-1">Other Information</label><br>
-               <input type = "text" class = "inputBox" name = "Other Information"
-                  formControlName="CarrierCase">
+               <input type = "text" class = "inputBox" name = "Other Information" [(ngModel)]="tabFields.otherInfo" (ngModelChange)="onDataChange($event,'otherInfo')">
                 </div>              
-            </form>
+            </div>
          </div>  
         </div>
         <div class="btn-cont-1">
@@ -377,91 +298,61 @@
     <div class="compensation-tab-cont" *ngIf="tab==='NJ-PIP'">
         <div class="content-container-1">
             <div style="width:100% ;">
-                <form class="group-1">
-                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
-                        <label for="Claim" class="label-1">Claim #</label>
-                        <select  class="inputBox">
-                            <option value="" disabled selected>Select Status</option>
-                            <option ng-repeat="x in names">ABC</option>
-                            <option ng-repeat="x in names">EFG</option>
-                            <option ng-repeat="x in names">HIJ</option>
-                        </select>
+                <div class="group-1">
+                    <div class="sub-inp-cont">
+                        <label for="CarrierCase" class="label-1">Cliam #</label><br>
+                       <input type = "text" class = "inputBox" name = "CarrierCase" [(ngModel)]="tabFields.claim" (ngModelChange)="onDataChange($event,'claim')">
                     </div>
                     <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                         <label for="Relationship" class="label-1">Relationship to be Insured</label><span style="color: red;">*</span><br>
-                        <select  class="inputBox">
+                        <select  class="inputBox" [(ngModel)]="tabFields.relationshiptoInsured" (ngModelChange)="onDataChange($event,'relation')">
                             <option value="" disabled selected>Select Relationship</option>
-                            <option ng-repeat="x in names">ABC</option>
-                            <option ng-repeat="x in names">EFG</option>
-                            <option ng-repeat="x in names">HIJ</option>
+                            <option *ngFor="let relation of relationshipTypes">{{relation.Name}}</option>
                         </select>
                     </div>
-                </form>
+                </div>
              </div>
              <div style="width: 100%">
-                <form class="group-1">
-                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <div class="group-1">
+                    <div class="sub-inp-cont">
                         <label for="Effective" class="label-1">Effective From</label><br>
-                          <select  class="inputBox">
-                            <option value="" disabled selected>mm/dd/yyyy</option>
-                            <option ng-repeat="x in names">ABC</option>
-                            <option ng-repeat="x in names">EFG</option>
-                            <option ng-repeat="x in names">HIJ</option>
-                        </select>
+                        <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveFrom' (ngModelChange)="onDataChange($event,'effectiveFrom')">
                     </div>
-                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
-                    <label for="Effective from" class="label-1">Effective From</label>
-                      <select  class="inputBox">
-                        <option value="" disabled selected>mm/dd/yyyy</option>
-                        <option ng-repeat="x in names">ABC</option>
-                        <option ng-repeat="x in names">EFG</option>
-                        <option ng-repeat="x in names">HIJ</option>
-                    </select>
+                    <div class="sub-inp-cont">
+                        <label for="Effective" class="label-1">Effective To</label><br>
+                        <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveTo' (ngModelChange)="onDataChange($event,'effectiveTo')">
                     </div>
-                </form>
+                </div>
              </div>
              <div style="width: 100%">
-                <form class="group-1">
+                <div class="group-1">
                     <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                         <label for="Status" class="label-1">Status</label>
-                          <select  class="inputBox">
+                          <select  class="inputBox" [(ngModel)]="tabFields.status" (ngModelChange)="onDataChange($event,'status')">
                             <option value="" disabled selected>Select Status</option>
-                            <option ng-repeat="x in names">ABC</option>
-                            <option ng-repeat="x in names">EFG</option>
-                            <option ng-repeat="x in names">HIJ</option>
+                            <option *ngFor="let status of statusTypes">{{status.Name}}</option>
                         </select>
                     </div>
                     <div class="sub-inp-cont">
                         <label for="policy" class="label-1">Policy #</label><br>
-                       <input type = "text" class = "inputBox" name = "CarrierId"
-                          formControlName="CarrierId">
+                       <input type = "text" class = "inputBox" name = "CarrierId" [(ngModel)]="tabFields.policy" (ngModelChange)="onDataChange($event,'policy')">
                     </div> 
-                </form>
+                </div>
              </div>
              <div style="margin-top: 15px;">
                 <p class="label-1" style="margin-left: 2.7%;">Priority</p>
-                <form class="radio-form">
-                    <div>
-                      <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
-                      <label for="html" class="radio-label">Primary</label>
+                <div class="radio-form">
+                    <div *ngFor="let priority of priorityTypes">
+                      <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;" [value]='priority.Name' [checked]="priority.Name===tabFields.priority" (ngValueChange)="onDataChange($event,'effectiveTo')">
+                      <label for="html" class="radio-label">{{priority.Name}}</label>
                     </div>
-                    <div>
-                      <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
-                      <label for="css" class="radio-label">Secondary</label>
-                    </div>
-                    <div>
-                      <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
-                      <label for="javascript" class="radio-label">Tertiary</label>
-                    </div>
-                  </form>
+                </div>
              </div>
              <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;">
                 <label for="Adjuster" class="label-1">Adjuster</label><br>
                   <select  class="inputBox">
                     <option value="" disabled selected>Select Adjuster</option>
-                    <option ng-repeat="x in names">ABC</option>
-                    <option ng-repeat="x in names">EFG</option>
-                    <option ng-repeat="x in names">HIJ</option>
+                    <option *ngFor="let adjuster of adjusterData">{{adjuster.PartnerOrganizationName+","+adjuster.AddressLine1+","+adjuster.AddressLine2+","+adjuster.City+","+adjuster.State+","+adjuster.ZipCode+","+adjuster.ContactPhone+","+adjuster.PhoneNumber}}</option>
                 </select>
             </div>
             <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
@@ -478,18 +369,16 @@
     <div class="compensation-tab-cont">
         <div class="content-container-1">
             <div style="width: 100%;">
-                <form class="group-1" style="margin-bottom: 30px;">
+                <div class="group-1" style="margin-bottom: 30px;">
                     <div class="sub-inp-cont">
                     <label for="Policy Amount" class="label-1">Policy Amount</label><br>
-                   <input type = "text" class = "inputBox" name = "CarrierCase"
-                      formControlName="CarrierCase" placeholder="$$$">
+                   <input type = "text" class = "inputBox" name = "CarrierCase" placeholder="$$$" [(ngModel)]="tabFields.policyAmount" (ngModelChange)="onDataChange($event,'policyAmount')">
                     </div>
                     <div class="sub-inp-cont">
                         <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
-                       <input type = "text" class = "inputBox" name = "CarrierId"
-                          formControlName="CarrierId" placeholder="$$$">
+                       <input type = "text" class = "inputBox" name = "CarrierId" placeholder="$$$" [(ngModel)]="tabFields.approxSpentAmount" (ngModelChange)="onDataChange($event,'approxAmount')">
                     </div>               
-                        </form>
+                </div>
                     </div>  
                         </div>
                         <div class="btn-cont-1">
@@ -502,88 +391,78 @@
                     <div class="compensation-tab-cont" *ngIf="tab==='Commercial'">
                         <div class="content-container-1">
                              <div style="width: 100%">
-                                <form class="group-1">
-                                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                                <div class="group-1">
+                                    <div class="sub-inp-cont">
                                         <label for="Effective" class="label-1">Effective From</label><br>
-                                          <select  class="inputBox">
-                                            <option value="" disabled selected>mm/dd/yyyy</option>
-                                            <option ng-repeat="x in names">ABC</option>
-                                            <option ng-repeat="x in names">EFG</option>
-                                            <option ng-repeat="x in names">HIJ</option>
-                                        </select>
+                                        <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveFrom' (ngModelChange)="onDataChange($event,'effectiveFrom')">
                                     </div>
-                                    <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
-                                    <label for="Effective from" class="label-1">Effective From</label>
-                                      <select  class="inputBox">
-                                        <option value="" disabled selected>mm/dd/yyyy</option>
-                                        <option ng-repeat="x in names">ABC</option>
-                                        <option ng-repeat="x in names">EFG</option>
-                                        <option ng-repeat="x in names">HIJ</option>
-                                    </select>
+                                    <div class="sub-inp-cont">
+                                        <label for="Effective" class="label-1">Effective To</label><br>
+                                        <input type = "date" class = "inputBox" name = "wcb" placeholder="mm/dd/yyyy" [(ngModel)]='tabFields.effectiveTo' (ngModelChange)="onDataChange($event,'effectiveTo')">
                                     </div>
-                                </form>
+                                </div>
                              </div>
                              <div style="width: 100%">
-                                <form class="group-1">
+                                <div class="group-1">
                                     <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                                         <label for="relationship" class="label-1">Relationship to Insured</label>
-                                          <select  class="inputBox">
+                                          <select  class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured' (ngModelChange)="onDataChange($event,'relation')">
                                             <option value="" disabled selected>Select Relationship</option>
-                                            <option ng-repeat="x in names">ABC</option>
-                                            <option ng-repeat="x in names">EFG</option>
-                                            <option ng-repeat="x in names">HIJ</option>
+                                            <option *ngFor="let relation of relationshipTypes">{{relation.Name}}</option>
                                         </select>
                                     </div>
                                     <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                                     <label for="Status" class="label-1">Status</label>
-                                      <select  class="inputBox">
+                                      <select  class="inputBox" [(ngModel)]='tabFields.status' (ngModelChange)="onDataChange($event,'status')">
                                         <option value="" disabled selected>Select Status</option>
-                                        <option ng-repeat="x in names">ABC</option>
-                                        <option ng-repeat="x in names">EFG</option>
-                                        <option ng-repeat="x in names">HIJ</option>
+                                        <option *ngFor="let status of statusTypes">{{status.Name}}</option>
                                     </select>
                                     </div>
-                                </form>
+                                </div>
                              </div>
                              <div style="width: 100%;">
-                                <form class="group-1">
+                                <div class="group-1">
                                     <div class="sub-inp-cont">
                                     <label for="insurance" class="label-1">Insurance Id</label><br>
-                                   <input type = "text" class = "inputBox" name = "insurance"
-                                      formControlName="city">
+                                   <input type = "text" class = "inputBox" name = "insurance" [(ngModel)]='tabFields.insuranceId' (ngModelChange)="onDataChange($event,'insId')">
                                     </div>
                                     <div class="sub-inp-cont">
                                         <label for="group" class="label-1">Group Id</label><br>
-                                       <input type = "text" class = "inputBox" name = "group"
-                                          formControlName="group">
+                                       <input type = "text" class = "inputBox" name = "group" [(ngModel)]='tabFields.groupId' (ngModelChange)="onDataChange($event,'groupId')">
                                     </div>          
-                                </form>
+                                </div>
                              </div>     
-                             <div style="margin-top: 15px;">
-                                <p class="label-1" style="margin-left: 2.7%;">Priority</p>
-                                <form class="radio-form">
+                             <div style="margin-top: 15px; display: flex;flex-direction: row;">
+                                <div class="radio-cont-1" style="width: 50%;">
+                                <p class="label-1" style="margin-left: 5%;">Priority</p>
+                                <div class="radio-form">
+                                    <div *ngFor="let priority of priorityTypes">
+                                      <input type="radio" id="html" name="fav_language" [value]='priority.Name' [checked]="priority.Name===tabFields.priority" style="border: 1px solid #AEAEB2;" (ngValueChange)="onDataChange($event,'priority')">
+                                      <label for="html" class="radio-label">{{priority.Name}}</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <div style="width: 50%; margin-left: 10px;">
+                                    <p class="label-1" style="margin-left: 4%;">Copay</p>
+                                <div class="radio-form">
                                     <div>
                                       <input type="radio" id="html" name="fav_language" value="HTML" style="border: 1px solid #AEAEB2;">
-                                      <label for="html" class="radio-label">Primary</label>
+                                      <label for="html" class="radio-label">Fixed</label>
                                     </div>
                                     <div>
                                       <input type="radio" id="css" name="fav_language" value="CSS" style="border: 1px solid #AEAEB2;">
-                                      <label for="css" class="radio-label">Secondary</label>
+                                      <label for="css" class="radio-label">Percentage</label>
                                     </div>
-                                    <div>
-                                      <input type="radio" id="javascript" name="fav_language" value="JavaScript" style="border: 1px solid #AEAEB2;">
-                                      <label for="javascript" class="radio-label">Tertiary</label>
-                                    </div>
-                                  </form>
+                                </div>
+                                </div>
                              </div>                      
                              <div class="sub-inp-cont" style="margin-top: 15px;">
                                 <label for="copay" class="label-1">Copay Amount</label><br>
-                               <input type = "text" class = "inputBox" name = "copay"
-                                  formControlName="copay">
+                               <input type = "text" class = "inputBox" name = "copay"  [(ngModel)]='tabFields.copayAmount' (ngModelChange)="onDataChange($event,'copayAmount')">
                             </div> 
                             <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" style="margin-top: 15px;margin-bottom: 30px;">
                                 <label for="Payer" class="label-1">Payer</label><span style="color: red;">*</span>
-                                  <select  class="inputBox">
+                                  <select  class="inputBox" [(ngModel)]='tabFields.payer' (ngModelChange)="onDataChange($event,'payer')">
                                     <option value="" disabled selected>Search Payer</option>
                                     <option ng-repeat="x in names">ABC</option>
                                     <option ng-repeat="x in names">EFG</option>
@@ -596,18 +475,16 @@
                         <div class="compensation-tab-cont">
                             <div class="content-container-1">
                                 <div style="width: 100%;">
-                                    <form class="group-1" style="margin-bottom: 30px;">
+                                    <div class="group-1" style="margin-bottom: 30px;">
                                         <div class="sub-inp-cont">
                                         <label for="Policy Amount" class="label-1">Policy Amount</label><br>
-                                       <input type = "text" class = "inputBox" name = "CarrierCase"
-                                          formControlName="CarrierCase" placeholder="$$$">
+                                       <input type = "text" class = "inputBox" name = "CarrierCase" placeholder="$$$" [(ngModel)]='tabFields.policyAmount' (ngModelChange)="onDataChange($event,'policyAmount')">
                                         </div>
                                         <div class="sub-inp-cont">
                                             <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
-                                           <input type = "text" class = "inputBox" name = "CarrierId"
-                                              formControlName="CarrierId" placeholder="$$$">
+                                           <input type = "text" class = "inputBox" name = "CarrierId" placeholder="$$$" [(ngModel)]='tabFields.approxSpentAmount' (ngModelChange)="onDataChange($event,'approxAmount')">
                                         </div>               
-                                    </form>
+                                    </div>
                                  </div>  
                                 </div>
                                 <div class="btn-cont-1">
@@ -620,13 +497,12 @@
                             <div class="compensation-tab-cont" *ngIf="tab==='Self Pay'">
                                 <div class="content-container-1">
                                     <div style="width: 100%;">
-                                        <form class="group-1" style="margin-bottom: 30px;">
+                                        <div class="group-1" style="margin-bottom: 30px;">
                                             <div class="sub-inp-cont">
                                             <label for="amount" class="label-1">Self Pay Amount</label><br>
-                                           <input type = "text" class = "inputBox" name = "amount"
-                                              formControlName="amount">
+                                           <input type = "text" class = "inputBox" name = "amount">
                                             </div>              
-                                        </form>
+                                        </div>
                                      </div>  
                                     </div>
                                     <div class="btn-cont-1">

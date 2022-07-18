@@ -91,6 +91,13 @@
     border: 1px solid #CCCCCC;
     outline: none;
     margin-top: 5px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #707375;
+    padding-left: 5px;
 }
 
 .radio-form{

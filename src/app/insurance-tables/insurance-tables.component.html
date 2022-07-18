@@ -17,9 +17,8 @@
             <div class="block-2" style="cursor: pointer;">
                 <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu"/>
             </div>
-            <!-- <button >Before</button> -->
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;">Edit</button>
+            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
             <button mat-menu-item>Delete</button>
             <button mat-menu-item>Disassociate to Episode</button>
             </mat-menu>
@@ -77,9 +76,8 @@
             <div class="block-2" style="cursor: pointer;">
                 <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu"/>
             </div>
-            <!-- <button >Before</button> -->
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;">Edit</button>
+            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
             <button mat-menu-item>Delete</button>
             <button mat-menu-item>Disassociate to Episode</button>
             </mat-menu>
