@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="block-2" style="cursor: pointer;">
-                <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu"/>
+                <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu" style="padding: 15px;"/>
             </div>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
             <button mat-menu-item style="background-color: #00C16E;color: #ffffff;" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
@@ -42,7 +42,7 @@
                 <p class="value-1">{{details.ExpirationDate?details.ExpirationDate:'-'}}</p>
             </div>
         </div>
-        <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="status && details.Id===selectedCardId">
+        <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="selectedCardId.includes(details.Id)">
             <div class="block-cont" style="margin-right: 8% ;">
                 <p class="heading-1">Carrier case #</p>
                 <p class="value-1">{{details.CarrierCaseNumber?details.CarrierCaseNumber:'-'}}</p>
@@ -56,7 +56,7 @@
                 <p class="value-1">{{details.GroupId?details.GroupId:"-"}}</p>
             </div>
         </div>
-        <mat-card-footer class="footer-card" (click)="clickEvent(details.Id)">{{status && details.Id===selectedCardId?'View less info':'View more info'}}</mat-card-footer>
+        <mat-card-footer class="footer-card" (click)="clickEvent(details.Id)">{{selectedCardId.includes(details.Id)?'View less info':'View more info'}}</mat-card-footer>
     </mat-card>
 </div>
       <br>
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="block-2" style="cursor: pointer;">
-                <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu"/>
+                <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu" style="padding: 15px;"/>
             </div>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
             <button mat-menu-item style="background-color: #00C16E;color: #ffffff;" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
@@ -101,7 +101,7 @@
                 <p class="value-1">{{details.ExpirationDate?details.ExpirationDate:'-'}}</p>
             </div>
             </div>
-            <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="status && details.Id===selectedCardId">
+            <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="selectedCardId.includes(details.Id)">
             <div class="block-cont" style="margin-right: 8% ;">
                 <p class="heading-1">Carrier case #</p>
                 <p class="value-1">{{details.CarrierCaseNumber?details.CarrierCaseNumber:'-'}}</p>
@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-    <mat-card-footer class="footer-card" (click)="clickEvent(details.Id)">{{status && details.Id===selectedCardId?'View less info':'View more info'}}</mat-card-footer>
+    <mat-card-footer class="footer-card" (click)="clickEvent(details.Id)">{{selectedCardId.includes(details.Id)?'View less info':'View more info'}}</mat-card-footer>
       </mat-card>
     </div>
 </div>

@@ -1,0 +1,172 @@
+<div class="compensation-tab-cont">
+    <div class="content-container-1">
+        <div style="width:100% ;">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="wcb" class="label-1">WCB #</label><br>
+                    <input type="text" class="inputBox" name="wcb" style="width: 97%;" [(ngModel)]='tabFields.wcb'
+                        (ngModelChange)="onDataChange($event,'wcb')">
+                </div>
+                <div ng-app="myApp" ng-controller="myCt" class="sub-inp-cont">
+                    <label for="Relationship" class="label-1">Relationship to be Insured</label><span
+                        style="color: red;">*</span><br>
+                    <select class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured'
+                        (ngModelChange)="onDataChange($event,'relation')">
+                        <option value="" disabled selected>Select Relationship</option>
+                        <option ng-repeat="x in names" *ngFor="let relation of relationshipTypes"
+                            [value]="relation.Name">{{relation.Name}}</option>
+                    </select>
+                    <!-- <p class="validation-content" *ngIf="clickType==='workersComp' && tabFields.relationshiptoInsured===''">Please enter the field</p> -->
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%">
+            <div class="group-1">
+                <div ng-app="myApp" ng-controller="my" class="sub-inp-cont">
+                    <label for="status" class="label-1">Status</label><br>
+                    <select class="inputBox" [(ngModel)]='tabFields.status'
+                        (ngModelChange)="onDataChange($event,'status')">
+                        <option value="" disabled selected>Select Status</option>
+                        <option *ngFor="let status of statusTypes" [value]="status.Name">{{status.Name}}</option>
+                    </select>
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="state" class="label-1">State</label><span style="color: red;">*</span><br>
+                    <select class="inputBox" [(ngModel)]='tabFields.state'
+                        (ngModelChange)="onDataChange($event,'state')">
+                        <option value="" disabled selected>Select State</option>
+                        <option *ngFor="let state of stateTypes" [value]="state.Name">{{state?.Name}}</option>
+                    </select>
+                    <p class="validation-content" *ngIf="clickType==='workersComp' && tabFields.state===''">Please enter the field</p>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="CarrierCase" class="label-1">Carrier Case #</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="CarrierCase" [(ngModel)]='tabFields.carrierCase'
+                        (ngModelChange)="onDataChange($event,'carrierCase')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="CarrierId" class="label-1">Carrier Id #</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="CarrierId" [(ngModel)]='tabFields.carrierId'
+                        (ngModelChange)="onDataChange($event,'carrierId')">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="city" class="label-1">City</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="city" [(ngModel)]='tabFields.city'
+                        (ngModelChange)="onDataChange($event,'city')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="otherInfo" class="label-1">Other Information</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="otherInfo" [(ngModel)]='tabFields.otherInfo'
+                        (ngModelChange)="onDataChange($event,'otherInfo')">
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 15px;">
+            <p class="label-1" style="margin-left: 2.7%;">Priority</p>
+            <div class="radio-form">
+                <div *ngFor="let priority of priorityTypes">
+                      <input type="radio" id="html" name="fav_language" value="HTML"
+                        style="border: 1px solid #AEAEB2;" [value]='priority.Name'
+                        [checked]="priority.Name===tabFields.priority"
+                        (valueOnChange)="onDataChange($event,'priority')">
+                      <label for="html" class="radio-label">{{priority.Name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="sub-inp-cont" style="margin-top: 2%;position:relative">
+            <label for="otherInfo" class="label-1">Adjuster</label>
+            <input type="search" style="z-index: 1; margin-right: 30px;" class="inputBox" name="otherInfo"
+                [(ngModel)]='tabFields.adjuster' (ngModelChange)="onDataChange($event,'adjuster')"
+                placeholder="Search Adjuster">
+            <div class="inputBox"
+                style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
+                *ngIf="dropClick !== true && searchType==='adjuster' && tabFields.adjuster !== ''">
+                <div *ngFor="let adjusters of adjusterData"
+                    (click)="setAdjusterValue(adjusters.PartnerOrganizationName,adjusters.AddressLine1,adjusters.AddressLine2,adjusters.City,adjusters.State,adjusters.ZipCode,adjusters.ContactPhone,adjusters.PhoneNumber,true,'adjuster')">
+                    <option style="white-space: break-spaces;margin-bottom: 10px;">
+                        <p> {{adjusters.PartnerOrganizationName+","+adjusters.AddressLine1+","+adjusters.AddressLine2+","+adjusters.City+","+adjusters.State+","+adjusters.ZipCode+","+adjusters.ContactPhone+","+adjusters.PhoneNumber}}
+                        </p>
+                    </option>
+                </div>
+            </div>
+        </div>
+        <div class="sub-inp-cont" style="margin-top: 2%;position:relative;margin-bottom: 10px;">
+            <label for="otherInfo" class="label-1">Payer</label><span style="color: red;">*</span><br>
+            <input type="search" style="z-index: 1;" class="inputBox" name="otherInfo" [(ngModel)]='tabFields.payerData'
+                (ngModelChange)="onDataChange($event,'payer')" placeholder="Search Payer">
+            <div class="inputBox"
+                style="height: auto;cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100"
+                *ngIf="dropClick !== true && searchType==='payer' && tabFields.payerData.length !== 0">
+                <div *ngFor="let payers of payerData"
+                (click)="setPayerValue(payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
+                <option style="white-space: break-spaces;margin-bottom: 10px;">
+                    <p>{{payers.PayorName+","+payers.Address1+","+payers.City+","+payers.State+","+payers.PhoneNumber}}</p>
+                    </option>
+                </div>
+            </div>
+            <p class="validation-content" *ngIf="clickType==='workersComp' && tabFields.payerData==''">Please enter the field</p>
+        </div>
+        <div class="sub-inp-cont" style="margin-top: 2%;position:relative">
+            <label for="otherInfo" class="label-1">Employer</label>
+            <input type="search" style="z-index: 1;" class="inputBox" name="otherInfo"
+                [(ngModel)]='tabFields.employer' (ngModelChange)="onDataChange($event,'employer')"
+                placeholder="Search Employe">
+            <div class="inputBox"
+                style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
+                *ngIf="dropClick !== true && searchType==='employe' && tabFields.employer!== ''">
+                <div *ngFor="let employe of employerData"
+                    (click)="setEmployeValue(employe.PartnerOrganizationName,employe.AddressLine1,employe.AddressLine2,employe.City,employe.State,employe.ZipCode,employe.ContactPhone,employe.PhoneNumber,true,'employe')">
+                    <option style="white-space: break-spaces;margin-bottom: 10px;">
+                        <p> {{employe.PartnerOrganizationName+","+employe.AddressLine1+","+employe.AddressLine2+","+employe.City+","+employe.State+","+employe.ZipCode+","+employe.ContactPhone+","+employe.PhoneNumber}}
+                        </p>
+                    </option>
+                </div>
+            </div>
+        </div>
+        <div class="sub-inp-cont" style="margin-top: 2%;position:relative">
+            <label for="otherInfo" class="label-1"> Supervisor</label>
+            <input type="search" style="width: 97%;" style="z-index: 1;" class="inputBox" name="otherInfo"
+                [(ngModel)]='tabFields.supervisor' (ngModelChange)="onDataChange($event,'supervisor')"
+                placeholder="Search Supervisor">
+            <div class="inputBox"
+                style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
+                *ngIf="dropClick !== true && searchType==='supervisor' && tabFields.supervisor!== ''">
+                <div *ngFor="let supervisors of supervisorData"
+                    (click)="setSupervisorValue(supervisors.FirstName,supervisors.LastName,true,'adjuster')">
+                    <option style="white-space: break-spaces;margin-bottom: 10px;">
+                        <p> {{supervisors.FirstName+" "+supervisors.LastName}}
+                        </p>
+                    </option>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-inp-cont" style="margin-top: 2% ;margin-bottom: 2% ; position:relative">
+            <label for="otherInfo" class="label-1">HR</label>
+            <input type="search" style="z-index: 1;" class="inputBox" name="otherInfo" [(ngModel)]='tabFields.HR'
+                (ngModelChange)="onDataChange($event,'hr')" placeholder="Search HR">
+            <div class="inputBox"
+                style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
+                *ngIf="dropClick !== true && searchType==='hr' && tabFields.HR !== ''">
+                <div *ngFor="let hr of hrData" (click)="setHrValue(hr.FirstName,hr.LastName,true,'adjuster')">
+                    <option style="white-space: break-spaces;margin-bottom: 10px; ">
+                        <p> {{hr.FirstName+" "+hr.LastName}}
+                        </p>
+                    </option>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-cont-1">
+        <button class="btn-cancel" mat-dialog-close>Cancel</button>
+        <button class="btn-update" (click)="fieldValidations('workersComp')">Update Info</button>
+    </div>
+</div>

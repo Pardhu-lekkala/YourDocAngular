@@ -1,0 +1,128 @@
+<div class="compensation-tab-cont">
+    <div class="content-container-1">
+        <div style="width: 100%">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="Effective" class="label-1">Effective From</label><br>
+                    <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.effectiveFrom'
+                        (ngModelChange)="onDataChange($event,'effectiveFrom')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="Effective" class="label-1">Effective To</label><br>
+                    <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.effectiveTo' (ngModelChange)="onDataChange($event,'effectiveTo')">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%">
+            <div class="group-1">
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="relationship" class="label-1">Relationship to Insured</label>
+                    <select class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured'
+                        (ngModelChange)="onDataChange($event,'relation')">
+                        <option value="" disabled selected>Select Relationship</option>
+                        <option *ngFor="let relation of relationshipTypes">{{relation.Name}}</option>
+                    </select>
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="Status" class="label-1">Status</label>
+                    <select class="inputBox" [(ngModel)]='tabFields.status'
+                        (ngModelChange)="onDataChange($event,'status')">
+                        <option value="" disabled selected>Select Status</option>
+                        <option *ngFor="let status of statusTypes">{{status.Name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="insurance" class="label-1">Insurance Id</label><br>
+                    <input type="text" class="inputBox" name="insurance" [(ngModel)]='tabFields.insuranceId'
+                        (ngModelChange)="onDataChange($event,'insId')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="group" class="label-1">Group Id</label><br>
+                    <input type="text" class="inputBox" name="group" [(ngModel)]='tabFields.groupId'
+                        (ngModelChange)="onDataChange($event,'groupId')">
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 15px; display: flex;flex-direction: row;">
+            <div class="radio-cont-1" style="width: 50%;">
+                <p class="label-1" style="margin-left: 5%;">Priority</p>
+                <div class="radio-form">
+                    <div *ngFor="let priority of priorityTypes">
+                          <input type="radio" id="html" name="fav_language" [value]='priority.Name'
+                            [checked]="priority.Name===tabFields.priority" style="border: 1px solid #AEAEB2;"
+                            (ngValueChange)="onDataChange($event,'priority')">
+                          <label for="html" class="radio-label">{{priority.Name}}</label>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 50%; margin-left: 10px;">
+                <p class="label-1" style="margin-left: 4%;">Copay</p>
+                <div class="radio-form">
+                    <div>
+                          <input type="radio" id="html" name="fav_language" value="HTML"
+                            style="border: 1px solid #AEAEB2;">
+                          <label for="html" class="radio-label">Fixed</label>
+                    </div>
+                    <div>
+                          <input type="radio" id="css" name="fav_language" value="CSS"
+                            style="border: 1px solid #AEAEB2;">
+                          <label for="css" class="radio-label">Percentage</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-inp-cont" style="margin-top: 15px;">
+            <label for="copay" class="label-1">Copay Amount</label><br>
+            <input type="text" class="inputBox" name="copay" [(ngModel)]='tabFields.copayAmount'
+                (ngModelChange)="onDataChange($event,'copayAmount')">
+        </div>
+        <div class="sub-inp-cont" style="margin-top: 2%;position:relative;margin-bottom: 10px;">
+            <label for="otherInfo" class="label-1">Payer</label><span style="color: red;">*</span><br>
+            <input type="search" style="z-index: 1;" class="inputBox" name="otherInfo" [(ngModel)]='tabFields.payerData'
+                (ngModelChange)="onDataChange($event,'payer')" placeholder="Search Payer">
+            <div class="inputBox"
+                style="height: auto;cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100"
+                *ngIf="dropClick !== true && searchType==='payer' && tabFields.payerData.length !== 0">
+                <div *ngFor="let payers of payerData"
+                (click)="setPayerValue(payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
+                <option style="white-space: break-spaces;margin-bottom: 10px;">
+                    <p>{{payers.PayorName+","+payers.Address1+","+payers.City+","+payers.State+","+payers.PhoneNumber}}</p>
+                    </option>
+                </div>
+            </div>
+            <p class="validation-content" *ngIf="clickType==='workersComp' && tabFields.payerData==''">Please enter the field</p>
+        </div>
+    </div>
+    <!-- *****************Financial Status**************************************** -->
+    <p class="title-2">Financial Status</p>
+    <div class="compensation-tab-cont">
+        <div class="content-container-1">
+            <div style="width: 100%;">
+                <div class="group-1" style="margin-bottom: 30px;">
+                    <div class="sub-inp-cont">
+                        <label for="Policy Amount" class="label-1">Policy Amount</label><br>
+                        <input type="text" class="inputBox" name="CarrierCase" placeholder="$$$"
+                            [(ngModel)]='tabFields.policyAmount'
+                            (ngModelChange)="onDataChange($event,'policyAmount')">
+                    </div>
+                    <div class="sub-inp-cont">
+                        <label for="CarrierId" class="label-1">Approximate Spent Amount</label><br>
+                        <input type="text" class="inputBox" name="CarrierId" placeholder="$$$"
+                            [(ngModel)]='tabFields.approxSpentAmount'
+                            (ngModelChange)="onDataChange($event,'approxAmount')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-cont-1">
+            <button class="btn-cancel" mat-dialog-close>Cancel</button>
+            <button class="btn-update" (click)="fieldValidations('commercial')">Update Info</button>
+        </div>
+    </div>
+</div>

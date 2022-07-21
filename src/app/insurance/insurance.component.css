@@ -293,5 +293,15 @@
     border-radius: 3px; */
 }
 
+a {
+    color: #222222;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #222222;
+    text-decoration: none;
+}
+
 
 

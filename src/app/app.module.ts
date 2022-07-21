@@ -15,6 +15,14 @@ import { InsuranceTablesComponent } from './insurance-tables/insurance-tables.co
 import { InsuranceDailogComponent } from './insurance-dailog/insurance-dailog.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { LaibilityComponent } from './laibility/laibility.component';
+import { WorkersCompensationComponent } from './workers-compensation/workers-compensation.component';
+import { AutoAccidentComponent } from './auto-accident/auto-accident.component';
+import { OtherInfoComponent } from './other-info/other-info.component';
+import { NjPipComponent } from './nj-pip/nj-pip.component';
+import { CommercialComponent } from './commercial/commercial.component';
+import { SelfPayComponent } from './self-pay/self-pay.component';
 
 
 @NgModule({
@@ -23,6 +31,13 @@ import {MatMenuModule} from '@angular/material/menu';
     InsuranceComponent,
     InsuranceTablesComponent,
     InsuranceDailogComponent,
+    LaibilityComponent,
+    WorkersCompensationComponent,
+    AutoAccidentComponent,
+    OtherInfoComponent,
+    NjPipComponent,
+    CommercialComponent,
+    SelfPayComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +51,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule
    
   ],
   providers: [],

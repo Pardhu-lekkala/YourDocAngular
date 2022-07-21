@@ -17,16 +17,23 @@ export class InsuranceTablesComponent implements OnInit {
   editTab:any
   insuranceTypeId:any
   status: boolean = false;
-  selectedCardId:number;
+  selectedCardId:number[] = [];
   masterData=JSON.parse(window.localStorage['masterData']);
   @Output() getInsuranceDetails:EventEmitter<any>=new EventEmitter()
   constructor(public dialog: MatDialog,private service:MasterService) { 
   }
 
-  clickEvent(id:any){
-    this.selectedCardId=id
+  clickEvent(id:number){
+    if(this.selectedCardId.includes(id)){
+      console.log("Executed.")
+      this.selectedCardId = this.selectedCardId.filter((element: number) => {
+        return element !== id;
+      })
+    }else{
+      this.selectedCardId.push(id)
+    }
     this.status = !this.status
-    console.log(id,"select id")
+    console.log(this.selectedCardId, this.status, id, id in this.selectedCardId,"select id")
   }
 
 
