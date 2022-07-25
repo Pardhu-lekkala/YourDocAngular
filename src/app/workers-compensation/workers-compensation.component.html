@@ -73,10 +73,10 @@
             <p class="label-1" style="margin-left: 2.7%;">Priority</p>
             <div class="radio-form">
                 <div *ngFor="let priority of priorityTypes">
-                      <input type="radio" id="html" name="fav_language" value="HTML"
-                        style="border: 1px solid #AEAEB2;" [value]='priority.Name'
+                      <input type="radio" id="html" name="fav_language" [value]='priority.Name'
+                        style="border: 1px solid #AEAEB2;" [(ngModel)]='priority.Name'
                         [checked]="priority.Name===tabFields.priority"
-                        (valueOnChange)="onDataChange($event,'priority')">
+                        (ngModelChange)="onDataChange($event,'priority')">
                       <label for="html" class="radio-label">{{priority.Name}}</label>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
                 *ngIf="dropClick !== true && searchType==='adjuster' && tabFields.adjuster !== ''">
                 <div *ngFor="let adjusters of adjusterData"
-                    (click)="setAdjusterValue(adjusters.PartnerOrganizationName,adjusters.AddressLine1,adjusters.AddressLine2,adjusters.City,adjusters.State,adjusters.ZipCode,adjusters.ContactPhone,adjusters.PhoneNumber,true,'adjuster')">
+                    (click)="setAdjusterValue(adjusters.PartnerMemberId,adjusters.PartnerOrganizationName,adjusters.AddressLine1,adjusters.AddressLine2,adjusters.City,adjusters.State,adjusters.ZipCode,adjusters.ContactPhone,adjusters.PhoneNumber,true,'adjuster')">
                     <option style="white-space: break-spaces;margin-bottom: 10px;">
                         <p> {{adjusters.PartnerOrganizationName+","+adjusters.AddressLine1+","+adjusters.AddressLine2+","+adjusters.City+","+adjusters.State+","+adjusters.ZipCode+","+adjusters.ContactPhone+","+adjusters.PhoneNumber}}
                         </p>
@@ -106,7 +106,7 @@
                 style="height: auto;cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100"
                 *ngIf="dropClick !== true && searchType==='payer' && tabFields.payerData.length !== 0">
                 <div *ngFor="let payers of payerData"
-                (click)="setPayerValue(payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
+                (click)="setPayerValue(payers.Id,payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
                 <option style="white-space: break-spaces;margin-bottom: 10px;">
                     <p>{{payers.PayorName+","+payers.Address1+","+payers.City+","+payers.State+","+payers.PhoneNumber}}</p>
                     </option>
@@ -123,7 +123,7 @@
                 style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
                 *ngIf="dropClick !== true && searchType==='employe' && tabFields.employer!== ''">
                 <div *ngFor="let employe of employerData"
-                    (click)="setEmployeValue(employe.PartnerOrganizationName,employe.AddressLine1,employe.AddressLine2,employe.City,employe.State,employe.ZipCode,employe.ContactPhone,employe.PhoneNumber,true,'employe')">
+                    (click)="setEmployeValue(employe.PartnerMemberId,employe.PartnerOrganizationName,employe.AddressLine1,employe.AddressLine2,employe.City,employe.State,employe.ZipCode,employe.ContactPhone,employe.PhoneNumber,true,'employe')">
                     <option style="white-space: break-spaces;margin-bottom: 10px;">
                         <p> {{employe.PartnerOrganizationName+","+employe.AddressLine1+","+employe.AddressLine2+","+employe.City+","+employe.State+","+employe.ZipCode+","+employe.ContactPhone+","+employe.PhoneNumber}}
                         </p>
@@ -140,7 +140,7 @@
                 style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
                 *ngIf="dropClick !== true && searchType==='supervisor' && tabFields.supervisor!== ''">
                 <div *ngFor="let supervisors of supervisorData"
-                    (click)="setSupervisorValue(supervisors.FirstName,supervisors.LastName,true,'adjuster')">
+                    (click)="setSupervisorValue(supervisors.PartnerMemberId,supervisors.FirstName,supervisors.LastName,true,'adjuster')">
                     <option style="white-space: break-spaces;margin-bottom: 10px;">
                         <p> {{supervisors.FirstName+" "+supervisors.LastName}}
                         </p>
@@ -156,7 +156,7 @@
             <div class="inputBox"
                 style="cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100;height: 350px;overflow-y: scroll;"
                 *ngIf="dropClick !== true && searchType==='hr' && tabFields.HR !== ''">
-                <div *ngFor="let hr of hrData" (click)="setHrValue(hr.FirstName,hr.LastName,true,'adjuster')">
+                <div *ngFor="let hr of hrData" (click)="setHrValue(hr.PartnerMemberId,hr.FirstName,hr.LastName,true,'adjuster')">
                     <option style="white-space: break-spaces;margin-bottom: 10px; ">
                         <p> {{hr.FirstName+" "+hr.LastName}}
                         </p>

@@ -24,6 +24,7 @@ export class SelfPayComponent implements OnInit {
   clickType:string
   insuranceId: any;
   tabFields = {
+    initialTabId:16,
     selfPay:''
   };
   constructor(

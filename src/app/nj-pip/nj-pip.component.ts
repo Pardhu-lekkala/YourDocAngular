@@ -26,13 +26,13 @@ export class NjPipComponent implements OnInit {
   payerData: any = [];
   adjusterData: any = [];
   insuranceEditData: any = [];
-  filterPayers: any = [];
-  filterAdjusters: any = [];
+  editAdjuster: any = [];
   isEditMode: Boolean;
   validate=false
   clickType:string
   insuranceId: any;
   tabFields = {
+    initialTabId:10,
     effectiveFrom: '',
     effectiveTo: '',
     relationshiptoInsured: '',
@@ -45,7 +45,8 @@ export class NjPipComponent implements OnInit {
     approxSpentAmount: '',
     adjuster: '',
     payerData:'',
-    payerId:''
+    payerId:'',
+    adjusterId:''
   };
 
   @Output() validateDataEvent=new EventEmitter()
@@ -202,6 +203,23 @@ export class NjPipComponent implements OnInit {
             this.tabFields.payerData=resp.Payors[0].PayorName+","+resp.Payors[0].Address1+","+resp.Payors[0].Address2+","+resp.Payors[0].City+","+resp.Payors[0].State+","
             console.log(this.tabFields.payerData,"edit data of payer")
             console.log(resp.Payors[0].Address1,"edit payors")
+          })
+        }
+        this.tabFields.adjusterId=this.insuranceEditData.AdjusterId
+        console.log(this.tabFields.adjusterId,"adj id")
+        if(this.tabFields.adjusterId !== null){
+          this.service.getAdjusterData("").then(resp=>{
+            console.log(resp,"adj edit called")
+            this.editAdjuster=resp.OrganizationMembers.find(
+              (group: any) =>{
+                console.log(group.PartnerMemberId )
+                if(group.PartnerMemberId ===  this.tabFields.adjusterId){
+                  return group.PartnerOrganizationName
+                }
+              })
+              this.tabFields.adjuster=this.editAdjuster.PartnerOrganizationName+","+this.editAdjuster.AddressLine1+","+this.editAdjuster.AddressLine2+","+this.editAdjuster.City+","+this.editAdjuster.State+","+this.editAdjuster.ZipCode+","+this.editAdjuster.ContactPhone+","+this.editAdjuster.PhoneNumber
+              console.log(this.editAdjuster,"data")
+              console.log(this.tabFields.adjuster,"adj edit val")
           })
         }
         this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate;

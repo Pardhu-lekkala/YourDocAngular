@@ -94,20 +94,20 @@
            </div>
            <div class="content-cont-1">
                 <p class="head-3">Created by<br/>
-                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0].CreatedByMember?insuranceDetails[0].CreatedByMember:''}}</span>
+                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0]?insuranceDetails[0].CreatedByMember:''}}</span>
             </p>
             <div class="content-cont-1" style="margin-top: 5%;">
                 <p class="head-3">Created date<br/>
-                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0].CreatedDate?insuranceDetails[0].CreatedDate:''}}</span>
+                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0]?insuranceDetails[0].CreatedDate:''}}</span>
             </p>
             <div class="content-cont-1" style="margin-top: 5%;">
                 <p class="head-3">Last Modified by<br/>
-                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0].ModifiedByMember?insuranceDetails[0].ModifiedByMember:''}}</span>
+                <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0]?insuranceDetails[0].ModifiedByMember:''}}</span>
             </p>
            </div>
            <div class="content-cont-1" style="margin-top: 5%;">
             <p class="head-3">Last modified date<br/>
-            <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails?insuranceDetails[0].ModifiedDate:''}}</span>
+            <span class="id-name" *ngIf="insuranceDetails">{{insuranceDetails[0]?insuranceDetails[0].ModifiedDate:''}}</span>
         </p>
        </div>
         </div>

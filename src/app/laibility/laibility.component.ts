@@ -27,6 +27,7 @@ export class LaibilityComponent implements OnInit {
   isEditMode: Boolean;
   clickType:string
   tabFields = {
+    initialTabId:4,
     effectiveFrom: '',
     status:'',
     priority:'',

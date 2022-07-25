@@ -31,6 +31,7 @@ export class CommercialComponent implements OnInit {
   clickType:string
   insuranceId: any;
   tabFields = {
+    initialTabId:14,
     effectiveFrom: '',
     effectiveTo: '',
     relationshiptoInsured: '',

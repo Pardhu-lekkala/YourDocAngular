@@ -30,15 +30,23 @@ export class WorkersCompensationComponent implements OnInit {
   hrData: any = [];
   insuranceEditData: any = [];
   filterPayers: any = [];
-  filterAdjusters: any = [];
-  filterSupervisors:any=[];
-  filterHr:any=[];
-  filterEmploye:any=[];
+  editAdjuster: any = [];
+  editEmployer:any=[];
+  editSupervisor:any=[];
+  editHr:any=[]
   isEditMode: Boolean;
   clickType:string
   insuranceId: any;
   validate=false
   tabFields = {
+    initialTabId:1,
+    selectedPayerId:'',
+    selectedAdjusterId:'',
+    selectedSupervisorId:'',
+    selectedHRId:'',
+    selectedEmployerId:'',
+    selectedStatusId:29,
+    selectedPriorityId:1,
     effectiveFrom: '',
     effectiveTo: '',
     relationshiptoInsured: '',
@@ -53,6 +61,10 @@ export class WorkersCompensationComponent implements OnInit {
     copayAmount: '',
     payerName: '',
     payerId:'',
+    adjusterId:'',
+    supervisorId:'',
+    hrId:'',
+    employerId:'',
     policyAmount: '',
     approxSpentAmount: '',
     wcb: '',
@@ -86,6 +98,11 @@ export class WorkersCompensationComponent implements OnInit {
         break;
       case 'status':
         this.tabFields.status = value;
+        if(value==='Active'){
+          this.tabFields.selectedStatusId=29
+        }else{
+          this.tabFields.selectedStatusId=31
+        }
         break;
       case 'carrierCase':
         this.tabFields.carrierCase = value;
@@ -101,6 +118,14 @@ export class WorkersCompensationComponent implements OnInit {
         break;
       case 'priority':
         this.tabFields.priority = value;
+        if(value==="Primary"){
+          this.tabFields.selectedPriorityId=1
+        }else if(value==="Secondary"){
+          this.tabFields.selectedPriorityId=2
+        }else if(value==="Tertiary"){
+          this.tabFields.selectedPriorityId=3
+        }
+        console.log(this.tabFields.selectedPriorityId,"id of priority")
         break;
       case 'effectiveFrom':
         this.tabFields.effectiveFrom = value;
@@ -188,31 +213,37 @@ export class WorkersCompensationComponent implements OnInit {
     console.log(this.tabFields.payerData,"sssssssssssssssssssssssssssssss")
   }
 
-  setPayerValue(val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
+  setPayerValue(payerId:any,val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
     this.tabFields.payerData = val1+","+val2+","+val3+","+val4+","+val5;
+    this.tabFields.selectedPayerId=payerId
     this.dropClick = click;
     console.log(this.tabFields.payerData, 'drop payer val');
+    console.log(this.tabFields.selectedPayerId,"id of payer")
   }
 
-  setAdjusterValue(val1: any,val2:any,val3:any,val4:any,val5:any,val6:any,val7:any,val8:any, click: any, type: any) {
+  setAdjusterValue(adjusterId:any,val1: any,val2:any,val3:any,val4:any,val5:any,val6:any,val7:any,val8:any, click: any, type: any) {
     this.tabFields.adjuster = val1+","+val2+","+val3+","+val4+","+val5+","+val6+","+val7+","+val8
+    this.tabFields.selectedAdjusterId=adjusterId
     this.dropClick = click;
   }
 
-  setSupervisorValue(val1: any,val2:any, click: any, type: any) {
+  setSupervisorValue(supervisorId:any,val1: any,val2:any, click: any, type: any) {
     this.tabFields.supervisor = val1+" "+val2
+    this.tabFields.selectedSupervisorId=supervisorId
     this.dropClick = click;
-    console.log(this.tabFields.supervisor, 'drop payer val');
+    console.log(this.tabFields.selectedSupervisorId, 'drop payer val');
   }
 
-  setHrValue(val1: any,val2:any, click: any, type: any) {
+  setHrValue(hrId:any,val1: any,val2:any, click: any, type: any) {
     this.tabFields.HR = val1+" "+val2;
+    this.tabFields.selectedHRId=hrId
     this.dropClick = click;
-    console.log(this.tabFields.HR, 'drop payer val');
+    console.log(this.tabFields.selectedHRId, 'drop payer val');
   }
 
-  setEmployeValue(val1: any,val2:any,val3:any,val4:any,val5:any,val6:any,val7:any,val8:any, click: any, type: any) {
+  setEmployeValue(employerId:any,val1: any,val2:any,val3:any,val4:any,val5:any,val6:any,val7:any,val8:any, click: any, type: any) {
     this.tabFields.employer= val1+","+val2+","+val3+","+val4+","+val5+","+val6+","+val7+","+val8
+    this.tabFields.selectedEmployerId=employerId
     this.dropClick = click;
     console.log(this.tabFields.employer, 'drop payer val');
   }
@@ -223,6 +254,7 @@ export class WorkersCompensationComponent implements OnInit {
       this.validate=true
     }else{
       this.validate=false
+      this.service.postInsuranceData(this.tabFields)
     }
     this.validateDataEvent.emit(this.validate)
     // this.clickType=type
@@ -293,6 +325,7 @@ export class WorkersCompensationComponent implements OnInit {
         this.insuranceEditData = resp.find(
           (item: any) => item.Id === this.editTableId
         );
+        /******************************Edit payer************************************/
         this.tabFields.payerId = this.insuranceEditData.PayorId
         if(this.tabFields.payerId !== ''){
           console.log('called edit api')
@@ -302,6 +335,65 @@ export class WorkersCompensationComponent implements OnInit {
             console.log(resp.Payors[0].Address1,"edit payors")
           })
         }
+        /*************************Edit adjuster*****************************************/
+        this.tabFields.adjusterId=this.insuranceEditData.AdjusterId
+        console.log(this.tabFields.adjusterId,"adj id")
+        if(this.tabFields.adjusterId !== null){
+          this.service.getAdjusterData("").then(resp=>{
+            this.editAdjuster=resp.OrganizationMembers.find(
+              (group: any) =>{
+                console.log(group.PartnerMemberId )
+                if(group.PartnerMemberId ===  this.tabFields.adjusterId){
+                  return group
+                }
+              })
+              this.tabFields.adjuster=this.editAdjuster.PartnerOrganizationName+","+this.editAdjuster.AddressLine1+","+this.editAdjuster.AddressLine2+","+this.editAdjuster.City+","+this.editAdjuster.State+","+this.editAdjuster.ZipCode+","+this.editAdjuster.ContactPhone+","+this.editAdjuster.PhoneNumber
+          })
+        }
+        /*****************************Edit employer******************************/
+        this.tabFields.employerId=this.insuranceEditData.EmployerId
+        console.log(this.tabFields.employerId,"emp id")
+        if(this.tabFields.employerId !== null){
+          this.service.getEmployesData("").then(resp=>{
+            console.log(resp,"emp edit called")
+            this.editEmployer=resp.OrganizationMembers.find(
+              (group: any) =>{
+                if(group.PartnerMemberId ===  this.tabFields.employerId){
+                  return group
+                }
+              })
+              this.tabFields.employer=this.editEmployer?.PartnerOrganizationName+","+this.editEmployer?.AddressLine1+","+this.editEmployer?.AddressLine2+","+this.editEmployer?.City+","+this.editEmployer?.State+","+this.editEmployer?.ZipCode+","+this.editEmployer?.ContactPhone+","+this.editEmployer?.PhoneNumber
+          })
+        }
+        /*****************************Edit supervisor*************************************/
+        this.tabFields.supervisorId=this.insuranceEditData.SupervisorId
+        if(this.tabFields.supervisorId !== null){
+          this.service.getSupervisorData("").then(resp=>{
+            this.editSupervisor=resp.OrganizationMembers.find(
+              (group: any) =>{
+                if(group.PartnerMemberId ===  this.tabFields.supervisorId){
+                  return group
+                }
+              })
+              this.tabFields.supervisor=this.editSupervisor?.FirstName+" "+this.editSupervisor?.LastName
+          })
+        }
+        /***********************************Edit hr**********************************************/
+        this.tabFields.hrId=this.insuranceEditData.HrId
+        console.log(this.tabFields.hrId,"hr id")
+        if(this.tabFields.hrId !== null){
+          this.service.getHRData("").then(resp=>{
+            console.log(resp,"hr edit called")
+            this.editHr=resp.OrganizationMembers.find(
+              (group: any) =>{
+                if(group.PartnerMemberId ===  this.tabFields.hrId){
+                  return group
+                }
+              })
+              this.tabFields.HR=this.editHr?.FirstName+" "+this.editHr?.LastName
+          })
+        }
+        /*******************************************************************************************/
         this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate;
         this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom;
         (this.tabFields.insuranceId = this.insuranceEditData.InsuranceId),
@@ -343,21 +435,6 @@ export class WorkersCompensationComponent implements OnInit {
         console.log(this.tabFields, 'tab fields edit data');
       });
     }
-
-    // this.service.getAdjusterData().then((resp) => {
-    //   this.adjusterData = resp.OrganizationMembers;
-    //   console.log(this.adjusterData, 'adjuster data');
-    // });
-
-    // this.service.getSupervisorData().then((resp) => {
-    //   this.supervisorData = resp.OrganizationMembers;
-    //   console.log(this.supervisorData, 'supervisor data');
-    // });
-
-    // this.service.getHRData().then((resp) => {
-    //   this.hrData = resp.OrganizationMembers;
-    //   console.log(this.hrData, 'hr data');
-    // });
   }
 }
 

@@ -8,12 +8,12 @@ import axios from 'axios'
 export class MasterService {
 
   insuranceData:any=[]
-  token='eyJhbGciOiJSUzI1NiIsImtpZCI6IjQxRUYwQTlENTEzNzEyOTNBNjI1QTU5NUQzQUVGRDdEMDczMjBDODRSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IlFlOEtuVkUzRXBPbUphV1YwNjc5ZlFjeURJUSJ9.eyJuYmYiOjE2NTgzNzYxNTYsImV4cCI6MTY1ODQxMjE1NiwiaXNzIjoiaHR0cHM6Ly9pZHBkZXZ2Mi55b3VyZHJzLmNvbSIsImF1ZCI6WyJ5b3VyZHJzYXBpIiwieW91cmRyc2lkcGFwaSJdLCJjbGllbnRfaWQiOiJzd2FnZ2VyIiwic3ViIjoiMTMzMjEiLCJhdXRoX3RpbWUiOjE2NTgzNzYxNTUsImlkcCI6ImxvY2FsIiwicm9sZSI6IjEiLCJqdGkiOiJCRDY3QzQ1RjUyNjg5QzAwRjQ0OUQ5NDlDRUNEREUyRiIsInNpZCI6IjVEOEE4MTUyMTVCOTMzRkY5OTZERjhEMjMyODhCQjBCIiwiaWF0IjoxNjU4Mzc2MTU2LCJzY29wZSI6WyJ5b3VyZHJzYXBpc2NvcGUiLCJ5b3VyZHJzaWRwYXBpc2NvcGUiXSwiYW1yIjpbInB3ZCJdfQ.mBs-8jswrThdr0ifWpdGmBO29secnxnKwz_wsrGiamU55uUKeH2zquZ_0_Pp8QOWDLGRaatPvg9Sc4TEKKX68KedCpibYMTxhfAQmH2p0i_qI1_MUH9HUAy8rU__oG6qHZXh-v2PkNWwe9cOMVxjhTgzPvscEnZzo8k9vc_SQ7nUMSsZ78iN5oGd5e-9P-dyMutEHm6ThpkreX6UfB-7Y824guKXKCMPFyRIrHR_qFqmaPUdcHN_8xZQKWhytuBLq22qXnQXU_XUmbc72TrIJxFlnt3iPjeoZ_dncVtfQbdamlNz_vPZHN_bqJfZnewI41ijGh1vAjk7kVzAUL6FAtP6XTor-bIDS8NL4_q7m0Xbys-rH9FdhHujPhek3qKEGncsMCRyHRklq5UgcUccOgyaiMHKz1ZFdV5Aazlmx7qzcaeghokf1SJEmXTiTjt9FMlm8p7ul03c0VRDqwDUD5nygvR8HBkFY1_PUrd7yzLvRfgs6-4HGbarwOLwby_rI3el6deNKJJ8YCiimBIFkbRsTddBAT7_WNYmp0Ad5PoaKi_C_xIJ6XO3utqJvJZlnnqPk_LjX79pug_-oUeIjH9LJQgpylA2mOs-PSrkFb4526vBGV_jzX-pFV6WEZgNyJp6OcfKw_6rwJSS-m-fFjuSNiz0dA0RyZz5PPzk3dI'
+  token='eyJhbGciOiJSUzI1NiIsImtpZCI6IjQxRUYwQTlENTEzNzEyOTNBNjI1QTU5NUQzQUVGRDdEMDczMjBDODRSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IlFlOEtuVkUzRXBPbUphV1YwNjc5ZlFjeURJUSJ9.eyJuYmYiOjE2NTg3MjY0MjksImV4cCI6MTY1ODc2MjQyOSwiaXNzIjoiaHR0cHM6Ly9pZHBkZXZ2Mi55b3VyZHJzLmNvbSIsImF1ZCI6WyJ5b3VyZHJzYXBpIiwieW91cmRyc2lkcGFwaSJdLCJjbGllbnRfaWQiOiJzd2FnZ2VyIiwic3ViIjoiMTMzMjEiLCJhdXRoX3RpbWUiOjE2NTg3MjY0MjgsImlkcCI6ImxvY2FsIiwicm9sZSI6IjEiLCJqdGkiOiIyNzgzRERGRjM5REU0OUEyMDQ1MTREQjk5MTRERjJCRSIsInNpZCI6IkJEOEExNkE5N0MyN0I2MDg2RDlFOEQ0N0ZDMUNDREE0IiwiaWF0IjoxNjU4NzI2NDI5LCJzY29wZSI6WyJ5b3VyZHJzYXBpc2NvcGUiLCJ5b3VyZHJzaWRwYXBpc2NvcGUiXSwiYW1yIjpbInB3ZCJdfQ.Dqipg77YGyG3S3235sST2JqDgTWLiSXi3Yh9M6KGFp09NG2aFgWAl3GZhxwxj9me9XX70TL5sh-sOhiVenEQ24IPv_NTFeJrPrVFhfWHdSqpGZED57rOuMLCesEa8eeLBAGNsT0wQBRobhTkbFjljCxbsDt9rob-er6y82EJj23bI0Jrkxj9aQMQj2fQzmbToHc3XGCn94O3trDSwTcfqD0eg10U0vTCD3ljJnJF3YmKfjiVY0VYQj9IZZaRqgRUb-lkcPs297611HieUXgZnsH80GoFGSEP-hhzXQ73utXM25DCRFFme0uN_Lv6VyS4Kz0aKYLSZmoFY_ozGdUTAOafWyZE4KfCJRHEg7XSG_t--03F5C_d5I9fqCwm_DDZS0YnqvYE8klzI0tm72fgWLC_vnAcN6F_ZVu1ZwB1yVfQxf7194JjnucP0FzNgpsQXG_IX2yXpMcmy12-VL_2eGp6S4qdTCZf_3ulmfG-soSStBgJHWQ_yNa1vhBx78U2nnjOhzaWcVG6FSZlRLhP-wGPFragVFIHPEVngK5jPAbhIfuWbpWMNAo2NVOupdRlBAny5E57t-ZMr6-9sS96dJai34Yx3THe6jE7VIoD00sexEV-1Lsg0jFZ8ObGKuKFpmDGnglB2-FiTHx8NUxKryDTH0PGqv56evTLvfO6pRM'
   patientId=7466
   episodeId=9425
   PartnerOrganizationMemberIds=1
   PartnerOrganizationIds=1
-  OrganizationTypeIds=1
+  OrganizationTypeIds=4
   Page=1
   adjusterRoleId=64
   supervisorRoleId=26
@@ -118,7 +118,7 @@ export class MasterService {
   }
 
   getEmployesData(value:any){
-    return axios.get(`https://apidevv2.yourdrs.com/v1/PartnerOrganization/Member?PartnerOrganizationMemberIds=${this.PartnerOrganizationMemberIds}&PartnerOrganizationIds=${this.PartnerOrganizationIds}&OrganizationTypeIds=${this.OrganizationTypeIds}&MemberName=${value}&RoleIds=${this.employeRoleId}&ItemsPerPage=${10}&Page=${1}`,{
+    return axios.get(`https://apidevv2.yourdrs.com/v1/PartnerOrganization/Member?PartnerOrganizationMemberIds=${this.PartnerOrganizationMemberIds}&PartnerOrganizationIds=${this.PartnerOrganizationIds}&OrganizationTypeIds=${this.OrganizationTypeIds}&MemberName=${value}&ItemsPerPage=${10}&Page=${1}`,{
       headers: {
         Authorization: 'Bearer ' + this.token,
         "Access-Control-Allow-Origin": "*"
@@ -144,6 +144,21 @@ export class MasterService {
       console.log(error,"payer resp details err")
     })
   }
+
+  postInsuranceData(data:any){
+    axios.post('https://apidevv2.yourdrs.com/v1/Patient/Payor',data,{headers: {
+      Authorization: 'Bearer ' + this.token,
+      "Access-Control-Allow-Origin": "*"
+    }})
+    .then((response) => {
+      console.log(response,"response post")
+    })
+    .catch((error) => {
+       console.log(error,"error post")
+    });
+  }
+
+
 }
 
 ///v1/PartnerOrganization/Member

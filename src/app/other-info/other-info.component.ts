@@ -22,6 +22,7 @@ export class OtherInfoComponent implements OnInit {
   insuranceId: any;
   insuranceEditData: any = [];
   tabFields = {
+    initialTabId:7,
     otherInfo: '',
   };
   constructor(
