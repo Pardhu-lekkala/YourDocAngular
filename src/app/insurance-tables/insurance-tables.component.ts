@@ -72,15 +72,14 @@ export class InsuranceTablesComponent implements OnInit {
     })
   }
 
-  associateInsurance(id:any){
+  associateInsurance(id:any,val:any){
     this.clickType='associate'
-    let isAssociated=true
-    this.service.associateAndDissociate(9425,id,isAssociated).then((res)=>{
+    this.service.associateAndDissociate(9425,id,val).then((res)=>{
       this.insuranceDetails.find(
         (group: any) =>{
           console.log(group.PartnerMemberId )
           if(group.Id ===  id){
-            group.IsAssociatedToEpisode=isAssociated
+            group.IsAssociatedToEpisode=val
           }
         })
     })

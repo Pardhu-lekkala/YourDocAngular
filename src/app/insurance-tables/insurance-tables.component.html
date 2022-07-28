@@ -20,7 +20,7 @@
             <mat-menu #beforeMenu="matMenu" xPosition="before">
             <button mat-menu-item  (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
             <button mat-menu-item  (click)="deleteInsrunce(details.Id);">Delete</button>
-            <button mat-menu-item  (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
+            <button mat-menu-item  (click)="associateInsurance(details.Id,false)">Disassociate to Episode</button>
             </mat-menu>
             
         </div>
@@ -79,7 +79,7 @@
             <mat-menu #beforeMenu="matMenu" xPosition="before">
                 <button mat-menu-item  (click)="openDialog(details.InsuranceCaseTypeId,details.Id)">Edit</button>
                 <button mat-menu-item  (click)="deleteInsrunce(details.Id);">Delete</button>
-                <button mat-menu-item  (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
+                <button mat-menu-item  (click)="associateInsurance(details.Id,true)">Associate to Episode</button>
             </mat-menu>
         </div>
         <div>
