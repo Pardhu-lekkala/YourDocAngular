@@ -35,6 +35,7 @@ export class AutoAccidentComponent implements OnInit {
   validate=false
   clickType:string
   insuranceId: any;
+  today=new Date()
   postResponse=false
   tabFields = {
     initialTabId:5,

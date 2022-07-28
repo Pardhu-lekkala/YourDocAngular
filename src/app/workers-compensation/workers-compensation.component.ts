@@ -39,6 +39,7 @@ export class WorkersCompensationComponent implements OnInit {
   clickType:string
   insuranceId: any;
   validate=false;
+  today=new Date()
   postResponse=false
   tabFields = {
     initialTabId:1,

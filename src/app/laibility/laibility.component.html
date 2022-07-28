@@ -4,9 +4,16 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="Effective" class="label-1">Effective From</label><br>
-                    <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
+                    <div style="height: 40px;width: 95%;border: 1px solid #cccccc;padding-left: 5px;margin-top: 10px;">
+                    <input matInput placeholder="mm/dd/yyyy" style="border-width: 0px !important;border-style: none !important;outline: none;color: #707375 !important;" [matDatepicker]="picker" [max]="today" [(ngModel)]='tabFields.effectiveFrom'
+                    (ngModelChange)="onDataChange($event,'effectiveFrom')">
+                        <mat-datepicker-toggle matSuffix [for]="picker" style="margin-left: 80px;"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                    <!-- <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
+                        [min]="today" [max]="today"
                         [(ngModel)]='tabFields.effectiveFrom'
-                        (ngModelChange)="onDataChange($event,'effectiveFrom')">
+                        (ngModelChange)="onDataChange($event,'effectiveFrom')"> -->
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                     <label for="Status" class="label-1">Status</label>

@@ -15,6 +15,8 @@ import { InsuranceTablesComponent } from './insurance-tables/insurance-tables.co
 import { InsuranceDailogComponent } from './insurance-dailog/insurance-dailog.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { LaibilityComponent } from './laibility/laibility.component';
 import { WorkersCompensationComponent } from './workers-compensation/workers-compensation.component';
@@ -52,6 +54,8 @@ import { SelfPayComponent } from './self-pay/self-pay.component';
     ReactiveFormsModule,
     FormsModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatAutocompleteModule
    
   ],

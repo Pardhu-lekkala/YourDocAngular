@@ -30,6 +30,7 @@ export class CommercialComponent implements OnInit {
   validate = true;
   clickType: string;
   insuranceId: any;
+  today=new Date()
   tabFields = {
     initialTabId: 14,
     selectedPayerId: '',

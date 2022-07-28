@@ -32,6 +32,7 @@ export class NjPipComponent implements OnInit {
   postResponse=false
   clickType:string
   insuranceId: any;
+  today=new Date()
   tabFields = {
     initialTabId:10,
     selectedPayerId:'',

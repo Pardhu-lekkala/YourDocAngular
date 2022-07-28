@@ -2,6 +2,7 @@ import { Component, OnInit, Inject,Output,EventEmitter } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MasterService } from '../master.service';
 import { FormControl } from '@angular/forms';
+//import {MatMomentDateModule} from '@angular/material/core'
 //LaibilityComponent
 
 @Component({
@@ -25,6 +26,7 @@ export class LaibilityComponent implements OnInit {
   filterPayers: any = [];
   validate=false
   isEditMode: Boolean;
+  today=new Date();
   clickType:string
   postResponse=false
   tabFields = {

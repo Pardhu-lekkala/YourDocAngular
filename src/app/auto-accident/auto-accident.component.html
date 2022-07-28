@@ -4,13 +4,13 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="CarrierCase" class="label-1">Cliam #</label><br>
-                    <input type="text" class="inputBox" name="CarrierCase" [(ngModel)]='tabFields.claim'
+                    <input type="text" style="width: 95%;" class="inputBox" name="CarrierCase" [(ngModel)]='tabFields.claim'
                         (ngModelChange)="onDataChange($event,'claim')">
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
                     <label for="Relationship" class="label-1">Relationship to be Insured</label><span
                         style="color: red;">*</span><br>
-                    <select class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured'
+                    <select class="inputBox" style="width: 96%;" [(ngModel)]='tabFields.relationshiptoInsured'
                         (ngModelChange)="onDataChange($event,'relation')">
                         <option value="" disabled selected>Select Relationship</option>
                         <option *ngFor="let relation of relationshipTypes">{{relation.Name}}</option>
@@ -24,7 +24,7 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="firstName" class="label-1">First Name</label><br>
-                    <input type="text" style="width: 97%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.firstName'
+                    <input type="text" style="width: 96%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.firstName'
                         (ngModelChange)="onDataChange($event,'firstName')">
                 </div>
                 <div class="sub-inp-cont">
@@ -57,9 +57,15 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="dob" class="label-1">DOB</label><br>
-                    <input type="date" class="inputBox" name="dob" placeholder="mm/dd/yyyy"
-                        [(ngModel)]='tabFields.dob' style="width: 95%;"
+                    <div style="height: 40px;width: 96%;border: 1px solid #cccccc;padding-left: 5px;margin-top: 10px;">
+                        <input matInput placeholder="mm/dd/yyyy" style="border-width: 0px !important;border-style: none !important;outline: none;color: #707375 !important;" [matDatepicker]="dob" [max]="today" [(ngModel)]='tabFields.dob'
                         (ngModelChange)="onDataChange($event,'dob')">
+                            <mat-datepicker-toggle matSuffix [for]="dob" style="margin-left: 80px;"></mat-datepicker-toggle>
+                            <mat-datepicker #dob></mat-datepicker>
+                        </div>
+                    <!-- <input type="date" class="inputBox" name="dob" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.dob' style="width: 95%;"
+                        (ngModelChange)="onDataChange($event,'dob')"> -->
                 </div>
                 <div class="sub-inp-cont">
                     <label for="ssn" class="label-1">SSN</label><br>
@@ -72,7 +78,7 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="address1" class="label-1">Address line 1</label><br>
-                    <input type="text" size="45" style="width: 97%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.address1'
+                    <input type="text" size="45" style="width: 96%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.address1'
                         (ngModelChange)="onDataChange($event,'address1')">
                 </div>
                 <div class="sub-inp-cont">
@@ -87,14 +93,26 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="Effective" class="label-1">Effective From</label><br>
-                    <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
-                        [(ngModel)]='tabFields.effectiveFrom'
+                    <div style="height: 40px;width: 96%;border: 1px solid #cccccc;padding-left: 5px;margin-top: 10px;">
+                        <input matInput placeholder="mm/dd/yyyy" style="border-width: 0px !important;border-style: none !important;outline: none;color: #707375 !important;" [matDatepicker]="from" [max]="today" [(ngModel)]='tabFields.effectiveFrom'
                         (ngModelChange)="onDataChange($event,'effectiveFrom')">
+                            <mat-datepicker-toggle matSuffix [for]="from" style="margin-left: 80px;"></mat-datepicker-toggle>
+                            <mat-datepicker #from></mat-datepicker>
+                        </div>
+                    <!-- <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.effectiveFrom'
+                        (ngModelChange)="onDataChange($event,'effectiveFrom')"> -->
                 </div>
                 <div class="sub-inp-cont">
                     <label for="Effective" class="label-1">Effective To</label><br>
-                    <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
-                        [(ngModel)]='tabFields.effectiveTo' (ngModelChange)="onDataChange($event,'effectiveTo')">
+                    <div style="height: 40px;width: 96%;border: 1px solid #cccccc;padding-left: 5px;margin-top: 10px;">
+                        <input matInput placeholder="mm/dd/yyyy" style="border-width: 0px !important;border-style: none !important;outline: none;color: #707375 !important;" [matDatepicker]="to" [max]="today" [(ngModel)]='tabFields.effectiveTo'
+                        (ngModelChange)="onDataChange($event,'effectiveTo')">
+                            <mat-datepicker-toggle matSuffix [for]="to" style="margin-left: 80px;"></mat-datepicker-toggle>
+                            <mat-datepicker #to></mat-datepicker>
+                        </div>
+                    <!-- <input type="date" class="inputBox" name="wcb" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.effectiveTo' (ngModelChange)="onDataChange($event,'effectiveTo')"> -->
                 </div>
             </div>
         </div>
@@ -102,7 +120,7 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="city" class="label-1">City</label><br>
-                    <input type="text" class="inputBox" name="city" [(ngModel)]='tabFields.city'
+                    <input type="text" style="width: 96%;" class="inputBox" name="city" [(ngModel)]='tabFields.city'
                         (ngModelChange)="onDataChange($event,'city')">
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
@@ -120,7 +138,7 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="Policy" class="label-1">Policy</label><br>
-                    <input type="text" class="inputBox" name="city" [(ngModel)]='tabFields.policy'
+                    <input type="text" style="width: 96%;" class="inputBox" name="city" [(ngModel)]='tabFields.policy'
                         (ngModelChange)="onDataChange($event,'policy')">
                 </div>
                 <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
@@ -137,7 +155,7 @@
             <div class="group-1">
                 <div class="sub-inp-cont">
                     <label for="otherInfo" class="label-1">Other Information</label><br>
-                    <input type="text" class="inputBox" name="city" [(ngModel)]='tabFields.otherInfo'
+                    <input type="text" style="width: 96%;" class="inputBox" name="city" [(ngModel)]='tabFields.otherInfo'
                         (ngModelChange)="onDataChange($event,'otherInfo')">
                 </div>
                  <div class="sub-inp-cont" *ngIf="tabFields.relationshiptoInsured!=='self'">
