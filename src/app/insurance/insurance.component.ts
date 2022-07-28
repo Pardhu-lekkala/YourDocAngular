@@ -15,12 +15,21 @@ export class InsuranceComponent implements OnInit {
   tab:string
   sideTab:string
   insuranceDetails:any=[]
-  constructor(public dialog: MatDialog,private service:MasterService) { }
+  addedInsDetails:any=[]
+  masterData=JSON.parse(window.localStorage['masterData']);
+  constructor(public dialog: MatDialog,private service:MasterService) {}
 
   openDialog() {
     const dialogRef = this.dialog.open(InsuranceDailogComponent,{height:'100vh',width:'50vw',position: { right: '0'},data: {editTabData: "Worker's Compensation",isEditMode:false}});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.service.getInsuranceDetails().then(resp=>{
+        resp.forEach((item:any)=> {
+          item.name=this.masterData.find((group:any)=>group.GroupId===21 && group.Id===item.InsuredRelationshipTypeId)?.Name
+        });
+        this.addedInsDetails=resp
+        console.log(this.addedInsDetails,"ins details in child")
+      })
     });
   }
 

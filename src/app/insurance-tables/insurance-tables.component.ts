@@ -1,4 +1,4 @@
-import { Component, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter,Input } from '@angular/core';
 import { MasterService } from '../master.service';
 import {MatDialog} from '@angular/material/dialog';
 import { InsuranceDailogComponent } from '../insurance-dailog/insurance-dailog.component';
@@ -24,6 +24,8 @@ export class InsuranceTablesComponent implements OnInit {
   constructor(public dialog: MatDialog,private service:MasterService) { 
   }
 
+  @Input() addedDetails: [];
+
   clickEvent(id:number){
     if(this.selectedCardId.includes(id)){
       console.log("Executed.")
@@ -36,7 +38,6 @@ export class InsuranceTablesComponent implements OnInit {
     this.status = !this.status
     console.log(this.selectedCardId, this.status, id, id in this.selectedCardId,"select id")
   }
-
 
   openDialog(id:any,tableId:any) {
     this.insuranceTypeId=id
@@ -59,12 +60,30 @@ export class InsuranceTablesComponent implements OnInit {
   deleteInsrunce(id:any){
     console.log(id,"id of delete")
     this.clickType='delete'
-    this.service.deleteInsuranceData(id)
+    this.service.deleteInsuranceData(id).then((res)=>{
+      this.insuranceDetails.find(
+        (group: any) =>{
+          console.log(group.PartnerMemberId )
+          if(group.Id ===  id){
+            this.insuranceDetails.splice(this.insuranceDetails.indexOf(group),1)
+            //console.log(this.insuranceDetails.indexOf(group),'ssssssssssssssssssss')
+          }
+        })
+    })
   }
 
   associateInsurance(id:any){
     this.clickType='associate'
-    this.service.associateAndDissociate(9425,id,true)
+    let isAssociated=true
+    this.service.associateAndDissociate(9425,id,isAssociated).then((res)=>{
+      this.insuranceDetails.find(
+        (group: any) =>{
+          console.log(group.PartnerMemberId )
+          if(group.Id ===  id){
+            group.IsAssociatedToEpisode=isAssociated
+          }
+        })
+    })
   }
 
 

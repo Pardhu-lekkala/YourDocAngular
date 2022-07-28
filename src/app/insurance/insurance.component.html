@@ -82,7 +82,7 @@
         <div class="data-cont">
             <h1 *ngIf="sideTab!=='Insurance'" style="margin-left: 15%;margin-top: 15%;">{{msg}}</h1>
             <div style="margin-left: 2%;margin-right: 4%;" *ngIf="sideTab==='Insurance'">
-                <app-insurance-tables (getInsuranceDetails)="getInsuranceDetails($event)"></app-insurance-tables>
+                <app-insurance-tables (getInsuranceDetails)="getInsuranceDetails($event)" [addedDetails]="addedInsDetails"></app-insurance-tables>
             </div>
         </div>
         <div class="right-cont">
