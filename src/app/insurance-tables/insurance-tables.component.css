@@ -15,7 +15,7 @@
     margin-bottom: 2%;
 }
 
-.background-change{
+/* .background-change{
     background-color: #00C16E;
     color: #ffffff;
 }
@@ -23,7 +23,7 @@
 .background-change2{
     background-color: #ffffff;
     color: #222222;
-}
+} */
 
 .footer-card{
     display: flex;
@@ -130,4 +130,9 @@
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
+}
+
+button.mat-menu-item:hover {
+    background-color: #00C16E !important;
+    color: #fff !important;
 }

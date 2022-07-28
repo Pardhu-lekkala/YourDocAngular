@@ -184,13 +184,7 @@ export class WorkersCompensationComponent implements OnInit {
         this.tabFields.lastName = value;
         break;
       case 'gender':
-        if(value==="Male"){
-          this.tabFields.gender = 'M';
-        }else if(value){
-          this.tabFields.gender='F'
-        }else{
-          this.tabFields.gender='Unknown'
-        }
+        this.tabFields.gender=value
         break;
       case 'phoneNumber':
         this.tabFields.phoneNumber = value;

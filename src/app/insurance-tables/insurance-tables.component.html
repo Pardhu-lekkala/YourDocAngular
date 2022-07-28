@@ -18,9 +18,9 @@
                 <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu" style="padding: 15px;"/>
             </div>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item [ngClass]="clickType==='edit' ? 'background-change' : 'background-change2'" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
-            <button mat-menu-item [ngClass]="clickType==='delete' ? 'background-change' : 'background-change2'" (click)="deleteInsrunce(details.Id);">Delete</button>
-            <button mat-menu-item [ngClass]="clickType==='associate' ? 'background-change' : 'background-change2'" (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
+            <button mat-menu-item  (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
+            <button mat-menu-item  (click)="deleteInsrunce(details.Id);">Delete</button>
+            <button mat-menu-item  (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
             </mat-menu>
             
         </div>
@@ -77,9 +77,9 @@
                 <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu" style="padding: 15px;"/>
             </div>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-                <button mat-menu-item [ngClass]="clickType==='edit' ? 'background-change' : 'background-change2'" (click)="openDialog(details.InsuranceCaseTypeId,details.Id)">Edit</button>
-                <button mat-menu-item [ngClass]="clickType==='delete' ? 'background-change' : 'background-change2'" (click)="deleteInsrunce(details.Id);">Delete</button>
-                <button mat-menu-item [ngClass]="clickType==='associate' ? 'background-change' : 'background-change2'" (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
+                <button mat-menu-item  (click)="openDialog(details.InsuranceCaseTypeId,details.Id)">Edit</button>
+                <button mat-menu-item  (click)="deleteInsrunce(details.Id);">Delete</button>
+                <button mat-menu-item  (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
             </mat-menu>
         </div>
         <div>
