@@ -10,7 +10,7 @@
   <div *ngIf="validateAuto && tab==='Auto Accident'" class="alert alert-danger" role="alert">
     Please Enter Mandatory Fields.
   </div>
-  <div *ngIf="validateNjPip && tab==='NJ-PIP'" class="alert alert-danger" role="alert">
+  <div *ngIf="validateNjPip && tab==='NJ - PIP'" class="alert alert-danger" role="alert">
     Please Enter Mandatory Fields.
   </div>
   <div *ngIf="validateCommercial && tab==='Commercial'" class="alert alert-danger" role="alert">
@@ -31,16 +31,16 @@
         <button class="tab-btn" (click)="getTab('Auto Accident')"
             [ngClass]="tab==='Auto Accident'? 'tab-change': ''">Auto Accident</button>
         <button class="tab-btn" (click)="getTab('Other')" [ngClass]="tab==='Other'? 'tab-change': ''">Other</button>
-        <button class="tab-btn" (click)="getTab('NJ-PIP')" [ngClass]="tab==='NJ-PIP'? 'tab-change': ''">NJ-PIP</button>
+        <button class="tab-btn" (click)="getTab('NJ - PIP')" [ngClass]="tab==='NJ - PIP'? 'tab-change': ''">NJ-PIP</button>
         <button class="tab-btn" (click)="getTab('Commercial')"
             [ngClass]="tab==='Commercial'? 'tab-change': ''">Commercial</button>
-        <button class="tab-btn" (click)="getTab('Self Pay')" [ngClass]="tab==='Self Pay'? 'tab-change': ''">Self
+        <button class="tab-btn" (click)="getTab('Self-Pay')" [ngClass]="tab==='Self-Pay'? 'tab-change': ''">Self
             Pay</button>
     </div>
     <p class="title-2">{{tab}}</p>
     <!-- /***************************Worker’s Compensation Form*********************************************** -->
     <div *ngIf="tab==='Worker’s Compensation'">
-        <app-workers-compensation (validateDataEvent)="dataValidator($event)"></app-workers-compensation>
+        <app-workers-compensation    (validateDataEvent)="dataValidator($event)"></app-workers-compensation>
     </div>
     <!-- /***************************Liabilty Form***************************************** -->
     <div *ngIf="tab==='Liability'">
@@ -52,18 +52,18 @@
     </div>
     <!-- ****************************Other Info Form******************************* -->
     <div *ngIf="tab==='Other'">
-        <app-other-info></app-other-info>
+        <app-other-info (validateDataEvent)="dataValidator($event)"></app-other-info>
     </div>
     </div>
         <!-- *****************************NJ-PIP Form*************************** -->
-        <div *ngIf="tab==='NJ-PIP'">
+        <div *ngIf="tab==='NJ - PIP'">
             <app-nj-pip (validateDataEvent)="dataValidator($event)"></app-nj-pip>
         </div>
     <!-- ******************************Commercial Form************************************ -->
     <div *ngIf="tab==='Commercial'">
-        <app-commercial></app-commercial>
+        <app-commercial (validateDataEvent)="dataValidator($event)"></app-commercial>
     </div>
     <!-- ********************************Self Pay Form******************************************* -->
-    <div *ngIf="tab==='Self Pay'">
-        <app-self-pay></app-self-pay>
+    <div *ngIf="tab==='Self-Pay'">
+        <app-self-pay (validateDataEvent)="dataValidator($event)"></app-self-pay>
     </div>

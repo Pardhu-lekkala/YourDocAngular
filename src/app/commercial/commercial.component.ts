@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MasterService } from '../master.service';
 import { FormControl } from '@angular/forms';
@@ -7,9 +7,8 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-commercial',
   templateUrl: './commercial.component.html',
-  styleUrls: ['./commercial.component.css']
+  styleUrls: ['./commercial.component.css'],
 })
-
 export class CommercialComponent implements OnInit {
   control = new FormControl('');
   tab: any;
@@ -27,11 +26,16 @@ export class CommercialComponent implements OnInit {
   insuranceEditData: any = [];
   filterPayers: any = [];
   isEditMode: Boolean;
-  validate=true
-  clickType:string
+  postResponse = false;
+  validate = true;
+  clickType: string;
   insuranceId: any;
   tabFields = {
-    initialTabId:14,
+    initialTabId: 14,
+    selectedPayerId: '',
+    selectedStatusId: 29,
+    selectedPriorityId: 1,
+    selectedTableId: '',
     effectiveFrom: '',
     effectiveTo: '',
     relationshiptoInsured: '',
@@ -39,15 +43,30 @@ export class CommercialComponent implements OnInit {
     priority: '',
     copay: '',
     copayAmount: '',
-    payerId:'',
-    payerData:'',
+    payerId: '',
+    payerData: '',
     policyAmount: '',
     approxSpentAmount: '',
     insuranceId: '',
     groupId: '',
+    firstName: '',
+    lastName: '',
+    gender: '',
+    phoneNumber: '',
+    dob: '',
+    ssn: '',
+    address1: '',
+    address2: '',
+    zip: '',
+    city: '',
+    state: '',
+    relationId: '',
+    stateId: '',
   };
 
-  @Output() validateDataEvent=new EventEmitter()
+  @Output() validateDataEvent = new EventEmitter();
+  @Output() testDialogData = new EventEmitter();
+
   constructor(
     private service: MasterService,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -60,9 +79,21 @@ export class CommercialComponent implements OnInit {
         break;
       case 'status':
         this.tabFields.status = value;
+        if (value === 'Active') {
+          this.tabFields.selectedStatusId = 29;
+        } else {
+          this.tabFields.selectedStatusId = 31;
+        }
         break;
       case 'priority':
         this.tabFields.priority = value;
+        if (value === 'Primary') {
+          this.tabFields.selectedPriorityId = 1;
+        } else if (value === 'Secondary') {
+          this.tabFields.selectedPriorityId = 2;
+        } else if (value === 'Tertiary') {
+          this.tabFields.selectedPriorityId = 3;
+        }
         break;
       case 'insId':
         this.tabFields.insuranceId = value;
@@ -85,6 +116,42 @@ export class CommercialComponent implements OnInit {
       case 'copayAmount':
         this.tabFields.copayAmount = value;
         break;
+      case 'firstName':
+        this.tabFields.firstName = value;
+        break;
+      case 'lastName':
+        this.tabFields.lastName = value;
+        break;
+      case 'gender':
+        if (value === 'Male') {
+          this.tabFields.gender = 'M';
+        } else if (value) {
+          this.tabFields.gender = 'F';
+        } else {
+          this.tabFields.gender = 'Unknown';
+        }
+        break;
+      case 'phoneNumber':
+        this.tabFields.phoneNumber = value;
+        break;
+      case 'city':
+        this.tabFields.city = value;
+        break;
+      case 'state':
+        this.tabFields.state = value;
+        break;
+      case 'dob':
+        this.tabFields.dob = value;
+        break;
+      case 'ssn':
+        this.tabFields.ssn = value;
+        break;
+      case 'address1':
+        this.tabFields.address1 = value;
+        break;
+      case 'address2':
+        this.tabFields.address2 = value;
+        break;
       case 'payer':
         this.tabFields.payerData = value;
         this.searchType = 'payer';
@@ -102,23 +169,42 @@ export class CommercialComponent implements OnInit {
     console.log(key, value, 'data on change');
   }
 
-  setPayerValue(val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
-    this.tabFields.payerData = val1+","+val2+","+val3+","+val4+","+val5;
+  setPayerValue(
+    payerId: any,
+    val1: any,
+    val2: any,
+    val3: any,
+    val4: any,
+    val5: any,
+    click: any,
+    type: any
+  ) {
+    this.tabFields.payerData =
+      val1 + ',' + val2 + ',' + val3 + ',' + val4 + ',' + val5;
+    this.tabFields.selectedPayerId = payerId;
     this.dropClick = click;
     console.log(this.tabFields.payerData, 'drop payer val');
   }
 
-
   /*******************************VALIDATIONS*******************************************/
-  fieldValidations(type:string){
-    if((this.tabFields.payerData==="")&& type==="commercial"){
-      this.validate=true
-    }else{
-      this.validate=false
+  fieldValidations(type: string) {
+    if (this.tabFields.payerData === '' && type === 'commercial') {
+      this.validate = true;
+    } else {
+      this.validate = false;
+      this.service
+        .postInsuranceData(this.tabFields)
+        .then((response) => {
+          this.postResponse = true;
+        })
+        .catch((error) => {
+          this.postResponse = false;
+        });
     }
-    this.validateDataEvent.emit(this.validate)
+    console.log('emitting Data', this.tabFields);
+    //this.testDialogData.emit(this.tabFields);
+    this.validateDataEvent.emit(this.validate);
   }
-
 
   getTab(tabData: string) {
     this.tab = tabData;
@@ -165,6 +251,7 @@ export class CommercialComponent implements OnInit {
     this.getStateData();
     this.getPriorityData();
     this.editTableId = this.data.tableId;
+    this.tabFields.selectedTableId = this.editTableId;
     if (this.data.editTabData === "Worker's Compensation") {
       this.tab = 'Worker’s Compensation';
     } else {
@@ -178,40 +265,76 @@ export class CommercialComponent implements OnInit {
       'edit data in dailog'
     );
 
-    if (this.isEditMode === true && this.data.editTabData==="Commercial") {
+    if (this.isEditMode === true && this.data.editTabData === 'Commercial') {
       this.service.getInsuranceDetails().then((resp) => {
         this.insuranceEditData = resp.find(
           (item: any) => item.Id === this.editTableId
         );
-        this.tabFields.payerId = this.insuranceEditData.PayorId
-        if(this.tabFields.payerId !== ''){
-          console.log('called edit api')
-          this.service.getEditPayerData(this.tabFields.payerId).then(resp=>{
-            this.tabFields.payerData=resp.Payors[0].PayorName+","+resp.Payors[0].Address1+","+resp.Payors[0].Address2+","+resp.Payors[0].City+","+resp.Payors[0].State+","
-            console.log(this.tabFields.payerData,"edit data of payer")
-            console.log(resp.Payors[0].Address1,"edit payors")
-          })
+        this.tabFields.payerId = this.insuranceEditData.PayorId;
+        if (this.tabFields.payerId !== '') {
+          console.log('called edit api');
+          this.service.getEditPayerData(this.tabFields.payerId).then((resp) => {
+            this.tabFields.payerData =
+              resp.Payors[0].PayorName +
+              ',' +
+              resp.Payors[0].Address1 +
+              ',' +
+              resp.Payors[0].Address2 +
+              ',' +
+              resp.Payors[0].City +
+              ',' +
+              resp.Payors[0].State +
+              ',';
+            console.log(this.tabFields.payerData, 'edit data of payer');
+            console.log(resp.Payors[0].Address1, 'edit payors');
+          });
         }
-        this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate;
-        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom;
+        (this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate
+          ? this.insuranceEditData.ExpirationDate.substr(0, 10)
+          : null),
+          (this.tabFields.effectiveFrom = this.insuranceEditData.ExpirationDate
+            ? this.insuranceEditData.EffectiveFrom.substr(0, 10)
+            : null),
           (this.tabFields.copay = this.insuranceEditData.CopayType),
           (this.tabFields.copayAmount = this.insuranceEditData.Amount),
-        //(this.tabFields.payerId = this.insuranceEditData.PayorId),
-        (this.tabFields.insuranceId = this.insuranceEditData.InsuranceId),
+          //(this.tabFields.payerId = this.insuranceEditData.PayorId),
+          (this.tabFields.insuranceId = this.insuranceEditData.InsuranceId),
           (this.tabFields.groupId = this.insuranceEditData.GroupId),
           (this.tabFields.policyAmount = this.insuranceEditData.PolicyAmount),
+          (this.tabFields.address1 = this.insuranceEditData.Address1),
+          (this.tabFields.address2 = this.insuranceEditData.Address2),
+          (this.tabFields.phoneNumber = this.insuranceEditData?.PhoneNumber),
+          (this.tabFields.selectedPayerId = this.insuranceEditData.PayorId),
           (this.tabFields.approxSpentAmount =
             this.insuranceEditData.ApproxSpentAmount),
-        (this.tabFields.relationshiptoInsured = this.masterData.find(
-          (group: any) =>
-            group.GroupId === 21 &&
-            group.Id === this.insuranceEditData.InsuredRelationshipTypeId
-        )?.Name),
+          (this.tabFields.relationshiptoInsured = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 21 &&
+              group.Id === this.insuranceEditData.InsuredRelationshipTypeId
+          )?.Name),
+          (this.tabFields.relationId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 21 &&
+              group.Name === this.tabFields.relationshiptoInsured
+          )?.Id),
           (this.tabFields.status = this.masterData.find(
             (group: any) =>
               group.GroupId === 50 &&
               group.Id === this.insuranceEditData.StatusId
           )?.Name),
+          (this.tabFields.state = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 6 && group.Id === this.insuranceEditData.StateId
+          )?.Name),
+          (this.tabFields.stateId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 6 && group.Name === this.tabFields.state,
+            console.log(
+              this.tabFields.state,
+              this.tabFields.stateId,
+              'state data'
+            )
+          )?.Id),
           (this.tabFields.priority = this.masterData.find(
             (group: any) =>
               group.GroupId === 22 &&
@@ -223,5 +346,3 @@ export class CommercialComponent implements OnInit {
     }
   }
 }
-
-

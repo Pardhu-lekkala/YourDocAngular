@@ -35,8 +35,16 @@ export class AutoAccidentComponent implements OnInit {
   validate=false
   clickType:string
   insuranceId: any;
+  postResponse=false
   tabFields = {
     initialTabId:5,
+    selectedPayerId:'',
+    selectedAdjusterId:'',
+    selectedStatusId:29,
+    selectedPriorityId:1,
+    selectedTableId:'',
+    stateId:'',
+    relationId:'',
     effectiveFrom: '',
     effectiveTo: '',
     relationshiptoInsured: '',
@@ -53,7 +61,16 @@ export class AutoAccidentComponent implements OnInit {
     adjuster: '',
     otherInfo: '',
     payerId:'',
-    adjusterId:''
+    adjusterId:'',
+    firstName:'',
+    lastName:'',
+    gender:'',
+    phoneNumber:'',
+    dob:'',
+    ssn:'',
+    address1:'',
+    address2:'',
+    zip:'',
   };
 
   @Output() validateDataEvent=new EventEmitter()
@@ -66,15 +83,37 @@ export class AutoAccidentComponent implements OnInit {
     switch (key) {
       case 'relation':
         this.tabFields.relationshiptoInsured = value;
+        this.tabFields.relationId = this.masterData.find(
+          (group: any) =>
+            group.GroupId === 21 &&
+            group.Name === value
+        )?.Id
         break;
       case 'state':
         this.tabFields.state = value;
+        this.tabFields.stateId = this.masterData.find(
+          (group: any) =>
+            group.GroupId === 6 &&
+            group.Name === value
+        )?.Id
         break;
       case 'status':
         this.tabFields.status = value;
+        if(value==='Active'){
+          this.tabFields.selectedStatusId=29
+        }else{
+          this.tabFields.selectedStatusId=31
+        }
         break;
       case 'priority':
         this.tabFields.priority = value;
+        if(value==="Primary"){
+          this.tabFields.selectedPriorityId=1
+        }else if(value==="Secondary"){
+          this.tabFields.selectedPriorityId=2
+        }else if(value==="Tertiary"){
+          this.tabFields.selectedPriorityId=3
+        }
         break;
       case 'effectiveFrom':
         this.tabFields.effectiveFrom = value;
@@ -86,13 +125,43 @@ export class AutoAccidentComponent implements OnInit {
         this.tabFields.effectiveTo = value;
         break;
       case 'policy':
-        this.tabFields.claim = value;
+        this.tabFields.policy = value;
         break;
       case 'approxAmount':
         this.tabFields.approxSpentAmount = value;
         break;
       case 'policyAmount':
         this.tabFields.policyAmount = value;
+        break;
+        case 'firstName':
+        this.tabFields.firstName = value;
+        break;
+      case 'lastName':
+        this.tabFields.lastName = value;
+        break;
+      case 'gender':
+        if(value==="Male"){
+          this.tabFields.gender = 'M';
+        }else if(value){
+          this.tabFields.gender='F'
+        }else{
+          this.tabFields.gender='Unknown'
+        }
+        break;
+      case 'phoneNumber':
+        this.tabFields.phoneNumber = value;
+        break;
+      case 'dob':
+        this.tabFields.dob = value;
+        break;
+      case 'ssn':
+        this.tabFields.ssn = value;
+        break;
+      case 'address1':
+        this.tabFields.address1 = value;
+        break;
+      case 'address2':
+        this.tabFields.address2 = value;
         break;
         case 'payer':
           this.tabFields.payerData = value;
@@ -121,14 +190,16 @@ export class AutoAccidentComponent implements OnInit {
     console.log(key, value, 'data on change');
   }
 
-  setPayerValue(val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
+  setPayerValue(payerId:any,val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
     this.tabFields.payerData = val1+","+val2+","+val3+","+val4+","+val5;
+    this.tabFields.selectedPayerId=payerId
     this.dropClick = click;
     console.log(this.tabFields.payerData, 'drop payer val');
   }
 
-  setAdjusterValue(val1: any,val2:any,val3:any,val4:any,val5:any,val6:any,val7:any,val8:any, click: any, type: any) {
+  setAdjusterValue(adjusterId:any,val1: any,val2:any,val3:any,val4:any,val5:any,val6:any,val7:any,val8:any, click: any, type: any) {
     this.tabFields.adjuster = val1+","+val2+","+val3+","+val4+","+val5+","+val6+","+val7+","+val8
+    this.tabFields.selectedAdjusterId=adjusterId
     this.dropClick = click;
   }
 
@@ -138,6 +209,12 @@ export class AutoAccidentComponent implements OnInit {
       this.validate=true
     }else{
       this.validate=false
+      this.service.postInsuranceData(this.tabFields)
+      .then((response)=>{
+        this.postResponse=true
+      }).catch((error)=>{
+        this.postResponse=false
+      })
     }
     this.validateDataEvent.emit(this.validate)
   }
@@ -188,6 +265,7 @@ export class AutoAccidentComponent implements OnInit {
     this.getStateData();
     this.getPriorityData();
     this.editTableId = this.data.tableId;
+    this.tabFields.selectedTableId=this.editTableId
     if (this.data.editTabData === "Worker's Compensation") {
       this.tab = 'Worker’s Compensation';
     } else {
@@ -216,26 +294,31 @@ export class AutoAccidentComponent implements OnInit {
           })
         }
 
+        this.tabFields.adjusterId=this.insuranceEditData.AdjusterId
+        console.log(this.tabFields.adjusterId,"adj id")
         if(this.tabFields.adjusterId !== null){
           this.service.getAdjusterData("").then(resp=>{
-            console.log(resp,"adj edit called")
             this.editAdjuster=resp.OrganizationMembers.find(
               (group: any) =>{
                 console.log(group.PartnerMemberId )
                 if(group.PartnerMemberId ===  this.tabFields.adjusterId){
-                  return group.PartnerOrganizationName
+                  return group
                 }
               })
               this.tabFields.adjuster=this.editAdjuster.PartnerOrganizationName+","+this.editAdjuster.AddressLine1+","+this.editAdjuster.AddressLine2+","+this.editAdjuster.City+","+this.editAdjuster.State+","+this.editAdjuster.ZipCode+","+this.editAdjuster.ContactPhone+","+this.editAdjuster.PhoneNumber
-              console.log(this.editAdjuster,"data")
-              console.log(this.tabFields.adjuster,"adj edit val")
           })
         }
-        this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate;
-        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom;
-          (this.tabFields.claim = this.insuranceEditData.ClaimNumber);
+
+        this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate.substr(0, 10);
+        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom.substr(0, 10);
+        (this.tabFields.claim = this.insuranceEditData.ClaimNumber);
         (this.tabFields.payer = this.insuranceEditData.PayorName),
         (this.tabFields.policyAmount = this.insuranceEditData.PolicyAmount),
+        (this.tabFields.address1=this.insuranceEditData.Address1),
+        (this.tabFields.address2=this.insuranceEditData.Address2),
+        (this.tabFields.phoneNumber=this.insuranceEditData?.PhoneNumber),
+        (this.tabFields.selectedAdjusterId=this.insuranceEditData.AdjusterId),
+        (this.tabFields.selectedPayerId=this.insuranceEditData.PayorId),
           (this.tabFields.approxSpentAmount =
             this.insuranceEditData.ApproxSpentAmount),
         this.tabFields.city = this.insuranceEditData.City;
@@ -246,21 +329,42 @@ export class AutoAccidentComponent implements OnInit {
             group.GroupId === 21 &&
             group.Id === this.insuranceEditData.InsuredRelationshipTypeId
         )?.Name),
-          (this.tabFields.state = this.masterData.find(
+        (this.tabFields.relationId = this.masterData.find(
+          (group: any) =>
+            group.GroupId === 21 &&
+            group.Name === this.tabFields.relationshiptoInsured
+        )?.Id),
+        (this.tabFields.state = this.masterData.find(
+          (group: any) =>
+            group.GroupId === 6 &&
+            group.Id === this.insuranceEditData.StateId,
+        )?.Name),
+          (this.tabFields.stateId = this.masterData.find(
             (group: any) =>
-              group.GroupId === 41 &&
-              group.Id === this.insuranceEditData.InsuredRelationshipTypeId
-          )?.Name),
+              group.GroupId === 6 &&
+              group.Name === this.tabFields.state,
+              console.log(this.tabFields.state,this.tabFields.stateId,"state data")
+          )?.Id),
           (this.tabFields.status = this.masterData.find(
             (group: any) =>
               group.GroupId === 50 &&
               group.Id === this.insuranceEditData.StatusId
           )?.Name),
+          (this.tabFields.selectedStatusId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 50 &&
+              group.Name === this.tabFields.status
+          )?.Id),
           (this.tabFields.priority = this.masterData.find(
             (group: any) =>
               group.GroupId === 22 &&
               group.Id === this.insuranceEditData.PriorityId
           )?.Name),
+          (this.tabFields.selectedPriorityId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 22 &&
+              group.Name === this.tabFields.priority
+          )?.Id),
           console.log(this.insuranceEditData, 'ins details in dailog');
         console.log(this.tabFields, 'tab fields edit data');
       });

@@ -17,6 +17,7 @@ export class InsuranceTablesComponent implements OnInit {
   editTab:any
   insuranceTypeId:any
   status: boolean = false;
+  clickType='edit'
   selectedCardId:number[] = [];
   masterData=JSON.parse(window.localStorage['masterData']);
   @Output() getInsuranceDetails:EventEmitter<any>=new EventEmitter()
@@ -39,13 +40,34 @@ export class InsuranceTablesComponent implements OnInit {
 
   openDialog(id:any,tableId:any) {
     this.insuranceTypeId=id
+    this.clickType='edit'
     this.editTab=this.masterData.find((group:any)=>group.GroupId===10 && group.Id===id)?.Name
     const dialogRef = this.dialog.open(InsuranceDailogComponent,{height:'100vh',width:'50vw',position: { right: '0'},data: {editTabData: this.editTab,isEditMode:true,tableId:tableId}});
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.service.getInsuranceDetails().then(resp=>{
+        resp.forEach((item:any)=> {
+          item.name=this.masterData.find((group:any)=>group.GroupId===21 && group.Id===item.InsuredRelationshipTypeId)?.Name
+        });
+        this.insuranceDetails=resp
+        console.log(this.insuranceDetails,"ins details in child")
+      })
+      console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',result);
     });
     console.log(this.editTab,"edit tab")
   }
+
+  deleteInsrunce(id:any){
+    console.log(id,"id of delete")
+    this.clickType='delete'
+    this.service.deleteInsuranceData(id)
+  }
+
+  associateInsurance(id:any){
+    this.clickType='associate'
+    this.service.associateAndDissociate(9425,id,true)
+  }
+
+
   
   ngOnInit(): void {
     this.service.getInsuranceDatas().then(resp=>{

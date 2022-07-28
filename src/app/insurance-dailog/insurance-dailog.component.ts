@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MasterService } from '../master.service';
 import { FormControl } from '@angular/forms';
 
@@ -17,15 +17,17 @@ export class InsuranceDailogComponent implements OnInit {
   searchType: string;
   masterData = JSON.parse(window.localStorage['masterData']);
   isEditMode: Boolean;
-  insuranceEditData:any=[]
-  clickType:string
+  insuranceEditData: any = [];
+  clickType: string;
   insuranceId: any;
-  validatorComp:boolean
-  validatorLiability:boolean
-  validateAuto:boolean
-  validateNjPip:boolean
-  validateCommercial:boolean
+  validatorComp: boolean;
+  validatorLiability: boolean;
+  validateAuto: boolean;
+  validateNjPip: boolean;
+  validateCommercial: boolean;
+  commercialDialogData: any;
   constructor(
+    //private dialogRef: MatDialogRef<InsuranceDailogComponent>,
     private service: MasterService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
@@ -33,42 +35,45 @@ export class InsuranceDailogComponent implements OnInit {
     this.tab = tabData;
     console.log(this.tab, 'tab in get');
   }
+  postResponse(event: any) {
+    console.log(event, 'cfsgh');
+  }
 
-  dataValidator(value:any){
-    if(this.tab==='Worker’s Compensation'){
-      this.validatorComp=value
-      this.validatorLiability=false
-      this.validateAuto=false
-      this.validateCommercial=false
-      this.validateNjPip=false
+  dataValidator(value: any) {
+    if (this.tab === 'Worker’s Compensation') {
+      this.validatorComp = value;
+      this.validatorLiability = false;
+      this.validateAuto = false;
+      this.validateCommercial = false;
+      this.validateNjPip = false;
     }
-    if(this.tab==='Liability'){
-      this.validatorLiability=value
-      this.validatorComp=false
-      this.validateAuto=false
-      this.validateCommercial=false
-      this.validateNjPip=false
+    if (this.tab === 'Liability') {
+      this.validatorLiability = value;
+      this.validatorComp = false;
+      this.validateAuto = false;
+      this.validateCommercial = false;
+      this.validateNjPip = false;
     }
-    if(this.tab==='Auto Accident'){
-      this.validateAuto=value
-      this.validatorComp=false
-      this.validatorLiability=false
-      this.validateCommercial=false
-      this.validateNjPip=false
+    if (this.tab === 'Auto Accident') {
+      this.validateAuto = value;
+      this.validatorComp = false;
+      this.validatorLiability = false;
+      this.validateCommercial = false;
+      this.validateNjPip = false;
     }
-    if(this.tab==='NJ-PIP'){
-      this.validateNjPip=value
-      this.validatorComp=false
-      this.validateAuto=false
-      this.validateCommercial=false
-      this.validatorLiability=false
+    if (this.tab === 'NJ - PIP') {
+      this.validateNjPip = value;
+      this.validatorComp = false;
+      this.validateAuto = false;
+      this.validateCommercial = false;
+      this.validatorLiability = false;
     }
-    if(this.tab==='Commercial'){
-      this.validateCommercial=value
-      this.validatorComp=false
-      this.validateAuto=false
-      this.validatorLiability=false
-      this.validateNjPip=false
+    if (this.tab === 'Commercial') {
+      this.validateCommercial = value;
+      this.validatorComp = false;
+      this.validateAuto = false;
+      this.validatorLiability = false;
+      this.validateNjPip = false;
     }
   }
 
@@ -92,8 +97,14 @@ export class InsuranceDailogComponent implements OnInit {
         this.insuranceEditData = resp.find(
           (item: any) => item.Id === this.editTableId
         );
-          console.log(this.insuranceEditData, 'ins details in dailog');
+        console.log(this.insuranceEditData, 'ins details in dailog');
       });
     }
+  }
+
+  testMethord(event: any) {
+    console.log('i got data from commercial', event);
+    this.commercialDialogData = event;
+    //this.dialogRef.close(this.commercialDialogData); 
   }
 }

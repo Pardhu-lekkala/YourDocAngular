@@ -35,6 +35,88 @@
                 </div>
             </div>
         </div>
+        <!-- /**************************relation self fields*********************************-->
+        <div style="width: 100%;" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="firstName" class="label-1">First Name</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.firstName'
+                        (ngModelChange)="onDataChange($event,'firstName')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="lastName" class="label-1">Last Name</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="lastName" [(ngModel)]='tabFields.lastName'
+                        (ngModelChange)="onDataChange($event,'lastName')">
+                </div>
+            </div>
+        </div>
+        <div style="width:100% ;" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div ng-app="myApp" ng-controller="myCt" class="sub-inp-cont">
+                    <label for="gender" class="label-1">Gender</label>
+                    <select class="inputBox" [(ngModel)]='tabFields.gender'
+                        (ngModelChange)="onDataChange($event,'gender')" style="width: 96%;">
+                        <option value="" disabled selected>Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Unknown</option>
+                    </select>
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="phone Number" class="label-1">Phone Number</label><br>
+                    <input type="number" size="10" class="inputBox" name="wcb" style="width: 97%;" [(ngModel)]='tabFields.phoneNumber'
+                        (ngModelChange)="onDataChange($event,'phoneNumber')" placeholder="(xxx)xxx-xxxx">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="dob" class="label-1">DOB</label><br>
+                    <input type="date" class="inputBox" name="dob" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.dob' style="width: 95%;"
+                        (ngModelChange)="onDataChange($event,'dob')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="ssn" class="label-1">SSN</label><br>
+                    <input type="text" size="15" style="width: 97%;" class="inputBox" name="lastName" [(ngModel)]='tabFields.ssn'
+                        (ngModelChange)="onDataChange($event,'ssn')" placeholder="xxx-xx-xxxx">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="address1" class="label-1">Address line 1</label><br>
+                    <input type="text" size="45" style="width: 97%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.address1'
+                        (ngModelChange)="onDataChange($event,'address1')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="address2" size="45" class="label-1">Address line 2</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="lastName" [(ngModel)]='tabFields.address2'
+                        (ngModelChange)="onDataChange($event,'address2')">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="city" class="label-1">City</label><br>
+                    <input type="text" class="inputBox" name="city" [(ngModel)]='tabFields.city'
+                        (ngModelChange)="onDataChange($event,'city')">
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                    <label for="state" class="label-1">State</label><span style="color: red;">*</span>
+                    <select class="inputBox" [(ngModel)]='tabFields.state'
+                        (ngModelChange)="onDataChange($event,'state')">
+                        <option value="" disabled selected>Select State</option>
+                        <option *ngFor="let state of stateTypes">{{state.Name}}</option>
+                    </select>
+                    <p class="validation-content" *ngIf="clickType==='autoAcc' && tabFields.state===''">Please enter the field</p>
+                </div>
+            </div>
+        </div>
+        <!-- /************************************************************************************* -->
         <div style="width: 100%;">
             <div class="group-1">
                 <div class="sub-inp-cont">
@@ -90,7 +172,7 @@
                 style="height: auto;cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100"
                 *ngIf="dropClick !== true && searchType==='payer' && tabFields.payerData.length !== 0">
                 <div *ngFor="let payers of payerData"
-                (click)="setPayerValue(payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
+                (click)="setPayerValue(payers.Id,payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
                 <option style="white-space: break-spaces;margin-bottom: 10px;">
                     <p>{{payers.PayorName+","+payers.Address1+","+payers.City+","+payers.State+","+payers.PhoneNumber}}</p>
                     </option>
@@ -121,8 +203,8 @@
             </div>
         </div>
         <div class="btn-cont-1">
-            <button class="btn-cancel" mat-dialog-close>Cancel</button>
-            <button class="btn-update" (click)="fieldValidations('commercial')">Update Info</button>
+            <button class="btn-cancel" mat-dialog-close [mat-dialog-close]="tabFields">Cancel</button>
+            <button class="btn-update" (click)="fieldValidations('commercial')">{{postResponse?'Updated':'Update Info'}}</button>
         </div>
     </div>
 </div>

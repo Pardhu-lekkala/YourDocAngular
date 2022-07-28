@@ -18,9 +18,9 @@
                 <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu" style="padding: 15px;"/>
             </div>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
-            <button mat-menu-item>Delete</button>
-            <button mat-menu-item>Disassociate to Episode</button>
+            <button mat-menu-item [ngClass]="clickType==='edit' ? 'background-change' : 'background-change2'" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
+            <button mat-menu-item [ngClass]="clickType==='delete' ? 'background-change' : 'background-change2'" (click)="deleteInsrunce(details.Id);">Delete</button>
+            <button mat-menu-item [ngClass]="clickType==='associate' ? 'background-change' : 'background-change2'" (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
             </mat-menu>
             
         </div>
@@ -35,11 +35,11 @@
             </div>
             <div class="block-cont">
                 <p class="heading-1">Effective from</p>
-                <p class="value-1">{{details.EffectiveFrom?details.EffectiveFrom:'-'}}</p>
+                <p class="value-1">{{details.EffectiveFrom?details.EffectiveFrom.substr(0,10):'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Expiration date</p>
-                <p class="value-1">{{details.ExpirationDate?details.ExpirationDate:'-'}}</p>
+                <p class="value-1">{{details.ExpirationDate?details.ExpirationDate.substr(0,10):'-'}}</p>
             </div>
         </div>
         <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="selectedCardId.includes(details.Id)">
@@ -77,9 +77,9 @@
                 <img src="/assets/moreInfo.svg" alt="..." mat-button [matMenuTriggerFor]="beforeMenu" style="padding: 15px;"/>
             </div>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item style="background-color: #00C16E;color: #ffffff;" (click)="openDialog(details.InsuranceCaseTypeId,details.Id);">Edit</button>
-            <button mat-menu-item>Delete</button>
-            <button mat-menu-item>Disassociate to Episode</button>
+                <button mat-menu-item [ngClass]="clickType==='edit' ? 'background-change' : 'background-change2'" (click)="openDialog(details.InsuranceCaseTypeId,details.Id)">Edit</button>
+                <button mat-menu-item [ngClass]="clickType==='delete' ? 'background-change' : 'background-change2'" (click)="deleteInsrunce(details.Id);">Delete</button>
+                <button mat-menu-item [ngClass]="clickType==='associate' ? 'background-change' : 'background-change2'" (click)="associateInsurance(details.Id)">Disassociate to Episode</button>
             </mat-menu>
         </div>
         <div>
@@ -94,11 +94,11 @@
             </div>
             <div class="block-cont">
                 <p class="heading-1">Effective from</p>
-                <p class="value-1">{{details.EffectiveFrom?details.EffectiveFrom:'-'}}</p>
+                <p class="value-1">{{details.EffectiveFrom?details.EffectiveFrom.substr(0,10):'-'}}</p>
             </div>
             <div class="block-cont">
                 <p class="heading-1">Expiration date</p>
-                <p class="value-1">{{details.ExpirationDate?details.ExpirationDate:'-'}}</p>
+                <p class="value-1">{{details.ExpirationDate?details.ExpirationDate.substr(0,10):'-'}}</p>
             </div>
             </div>
             <div style="display: flex;flex-direction: row;margin-top: 1%;" *ngIf="selectedCardId.includes(details.Id)">

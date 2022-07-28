@@ -20,9 +20,11 @@ export class OtherInfoComponent implements OnInit {
   isEditMode: Boolean;
   clickType:string
   insuranceId: any;
+  postResponse=false
   insuranceEditData: any = [];
   tabFields = {
     initialTabId:7,
+    selectedTableId:'',
     otherInfo: '',
   };
   constructor(
@@ -43,6 +45,12 @@ export class OtherInfoComponent implements OnInit {
   /*******************************VALIDATIONS*******************************************/
   fieldValidations(type:string){
     this.clickType=type
+    this.service.postInsuranceData(this.tabFields)
+    .then((response)=>{
+      this.postResponse=true
+    }).catch((error)=>{
+      this.postResponse=false
+    })
      console.log(this.clickType,"clicktype") 
   }
 
@@ -57,6 +65,7 @@ export class OtherInfoComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.tab, 'tab data');
     this.editTableId = this.data.tableId;
+    this.tabFields.selectedTableId=this.editTableId
     if (this.data.editTabData === "Worker's Compensation") {
       this.tab = 'Worker’s Compensation';
     } else {

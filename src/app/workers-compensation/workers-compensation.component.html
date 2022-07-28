@@ -13,24 +13,116 @@
                     <select class="inputBox" [(ngModel)]='tabFields.relationshiptoInsured'
                         (ngModelChange)="onDataChange($event,'relation')">
                         <option value="" disabled selected>Select Relationship</option>
-                        <option ng-repeat="x in names" *ngFor="let relation of relationshipTypes"
+                        <option *ngFor="let relation of relationshipTypes"
                             [value]="relation.Name">{{relation.Name}}</option>
                     </select>
                     <!-- <p class="validation-content" *ngIf="clickType==='workersComp' && tabFields.relationshiptoInsured===''">Please enter the field</p> -->
                 </div>
             </div>
         </div>
+        <!-- /**************************relation self fields*********************************-->
+        <div style="width: 100%;" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="firstName" class="label-1">First Name</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.firstName'
+                        (ngModelChange)="onDataChange($event,'firstName')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="lastName" class="label-1">Last Name</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="lastName" [(ngModel)]='tabFields.lastName'
+                        (ngModelChange)="onDataChange($event,'lastName')">
+                </div>
+            </div>
+        </div>
+        <div style="width:100% ;" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div ng-app="myApp" ng-controller="myCt" class="sub-inp-cont">
+                    <label for="gender" class="label-1">Gender</label>
+                    <select class="inputBox" [(ngModel)]='tabFields.gender'
+                        (ngModelChange)="onDataChange($event,'gender')" style="width: 96%;">
+                        <option value="" disabled selected>Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Unknown</option>
+                    </select>
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="phone Number" class="label-1">Phone Number</label><br>
+                    <input type="number" size="10" class="inputBox" name="wcb" style="width: 97%;" [(ngModel)]='tabFields.phoneNumber'
+                        (ngModelChange)="onDataChange($event,'phoneNumber')" placeholder="(xxx)xxx-xxxx">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="dob" class="label-1">DOB</label><br>
+                    <input type="date" class="inputBox" name="dob" placeholder="mm/dd/yyyy"
+                        [(ngModel)]='tabFields.dob' style="width: 95%;"
+                        (ngModelChange)="onDataChange($event,'dob')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="ssn" class="label-1">SSN</label><br>
+                    <input type="text" size="15" style="width: 97%;" class="inputBox" name="lastName" [(ngModel)]='tabFields.ssn'
+                        (ngModelChange)="onDataChange($event,'ssn')" placeholder="xxx-xx-xxxx">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;" *ngIf="tabFields.relationshiptoInsured!=='self'">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="address1" class="label-1">Address line 1</label><br>
+                    <input type="text" size="45" style="width: 97%;" class="inputBox" name="firstName" [(ngModel)]='tabFields.address1'
+                        (ngModelChange)="onDataChange($event,'address1')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="address2" size="45" class="label-1">Address line 2</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="lastName" [(ngModel)]='tabFields.address2'
+                        (ngModelChange)="onDataChange($event,'address2')">
+                </div>
+            </div>
+        </div>
+        <!-- /************************************************************************************* -->
         <div style="width: 100%">
             <div class="group-1">
                 <div ng-app="myApp" ng-controller="my" class="sub-inp-cont">
                     <label for="status" class="label-1">Status</label><br>
                     <select class="inputBox" [(ngModel)]='tabFields.status'
-                        (ngModelChange)="onDataChange($event,'status')">
+                        (ngModelChange)="onDataChange($event,'status')" style="width: 97%;">
                         <option value="" disabled selected>Select Status</option>
                         <option *ngFor="let status of statusTypes" [value]="status.Name">{{status.Name}}</option>
                     </select>
                 </div>
-                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont">
+                <div class="sub-inp-cont">
+                    <label for="CarrierId" class="label-1">Carrier Id #</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="CarrierId" [(ngModel)]='tabFields.carrierId'
+                        (ngModelChange)="onDataChange($event,'carrierId')">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;">
+            <div class="group-1">
+                <div class="sub-inp-cont">
+                    <label for="CarrierCase" class="label-1">Carrier Case #</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="CarrierCase" [(ngModel)]='tabFields.carrierCase'
+                        (ngModelChange)="onDataChange($event,'carrierCase')">
+                </div>
+                <div class="sub-inp-cont">
+                    <label for="otherInfo" class="label-1">Other Information</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="otherInfo" [(ngModel)]='tabFields.otherInfo'
+                        (ngModelChange)="onDataChange($event,'otherInfo')">
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;" >
+            <div class="group-1">
+                <div class="sub-inp-cont" *ngIf="tabFields.relationshiptoInsured!=='self'">
+                    <label for="city" class="label-1">City</label><br>
+                    <input type="text" style="width: 97%;" class="inputBox" name="city" [(ngModel)]='tabFields.city'
+                        (ngModelChange)="onDataChange($event,'city')">
+                </div>
+                <div ng-app="myApp" ng-controller="myCtrl" class="sub-inp-cont" *ngIf="tabFields.relationshiptoInsured!=='self'">
                     <label for="state" class="label-1">State</label><span style="color: red;">*</span><br>
                     <select class="inputBox" [(ngModel)]='tabFields.state'
                         (ngModelChange)="onDataChange($event,'state')">
@@ -43,29 +135,10 @@
         </div>
         <div style="width: 100%;">
             <div class="group-1">
-                <div class="sub-inp-cont">
-                    <label for="CarrierCase" class="label-1">Carrier Case #</label><br>
-                    <input type="text" style="width: 97%;" class="inputBox" name="CarrierCase" [(ngModel)]='tabFields.carrierCase'
-                        (ngModelChange)="onDataChange($event,'carrierCase')">
-                </div>
-                <div class="sub-inp-cont">
-                    <label for="CarrierId" class="label-1">Carrier Id #</label><br>
-                    <input type="text" style="width: 97%;" class="inputBox" name="CarrierId" [(ngModel)]='tabFields.carrierId'
-                        (ngModelChange)="onDataChange($event,'carrierId')">
-                </div>
-            </div>
-        </div>
-        <div style="width: 100%;">
-            <div class="group-1">
-                <div class="sub-inp-cont">
-                    <label for="city" class="label-1">City</label><br>
-                    <input type="text" style="width: 97%;" class="inputBox" name="city" [(ngModel)]='tabFields.city'
-                        (ngModelChange)="onDataChange($event,'city')">
-                </div>
-                <div class="sub-inp-cont">
-                    <label for="otherInfo" class="label-1">Other Information</label><br>
-                    <input type="text" style="width: 97%;" class="inputBox" name="otherInfo" [(ngModel)]='tabFields.otherInfo'
-                        (ngModelChange)="onDataChange($event,'otherInfo')">
+                <div class="sub-inp-cont" *ngIf="tabFields.relationshiptoInsured!=='self'">
+                    <label for="zip" class="label-1">Zip</label><br>
+                    <input type="text" size="45" style="width: 90%;" class="inputBox" name="zip" [(ngModel)]='tabFields.zip'
+                        (ngModelChange)="onDataChange($event,'zip')" placeholder="xxxxx-xxxx">
                 </div>
             </div>
         </div>
@@ -167,6 +240,6 @@
     </div>
     <div class="btn-cont-1">
         <button class="btn-cancel" mat-dialog-close>Cancel</button>
-        <button class="btn-update" (click)="fieldValidations('workersComp')">Update Info</button>
+        <button class="btn-update" (click)="fieldValidations('workersComp')">{{postResponse?'Updated':'Update Info'}}</button>
     </div>
 </div>

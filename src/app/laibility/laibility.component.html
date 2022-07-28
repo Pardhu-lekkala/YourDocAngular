@@ -22,10 +22,10 @@
             <p class="label-1" style="margin-left: 2.7%;">Priority</p>
             <div class="radio-form">
                 <div *ngFor="let priority of priorityTypes">
-                      <input type="radio" id="html" name="fav_language" value="HTML"
-                        style="border: 1px solid #AEAEB2;" [value]='priority.Name'
+                      <input type="radio" id="html" name="fav_language" [value]='priority.Name'
+                        style="border: 1px solid #AEAEB2;" [(ngModel)]='priority.Name'
                         [checked]="priority.Name===tabFields.priority"
-                        (valueOnChange)="onDataChange($event,'priority')">
+                        (ngModelChange)="onDataChange($event,'priority')">
                       <label for="html" class="radio-label">{{priority.Name}}</label>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 style="height: auto;cursor: pointer;width: 98%;position: absolute;top: 60px;left: 0;z-index: 100"
                 *ngIf="dropClick !== true && searchType==='payer' && tabFields.payerData.length !== 0">
                 <div *ngFor="let payers of payerData"
-                (click)="setPayerValue(payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
+                (click)="setPayerValue(payers.Id,payers.PayorName,payers.Address1,payers.City,payers.State,payers.PhoneNumber,true,'payer')">
                 <option style="white-space: break-spaces;margin-bottom: 10px;">
                     <p>{{payers.PayorName+","+payers.Address1+","+payers.City+","+payers.State+","+payers.PhoneNumber}}</p>
                     </option>
@@ -49,6 +49,6 @@
     </div>
     <div class="btn-cont-1">
         <button class="btn-cancel" mat-dialog-close>Cancel</button>
-        <button class="btn-update" (click)="fieldValidations('Liability')">Update Info</button>
+        <button class="btn-update" (click)="fieldValidations('Liability')">{{postResponse?'Updated':'Update Info'}}</button>
     </div>
 </div>

@@ -26,6 +26,7 @@ export class LaibilityComponent implements OnInit {
   validate=false
   isEditMode: Boolean;
   clickType:string
+  postResponse=false
   tabFields = {
     initialTabId:4,
     effectiveFrom: '',
@@ -33,7 +34,11 @@ export class LaibilityComponent implements OnInit {
     priority:'',
     payer:'',
     payerData:'',
-    payerId:''
+    payerId:'',
+    selectedPriorityId:1,
+    selectedStatusId:29,
+    selectedPayerId:'',
+    selectedTableId:''
   };
 
   @Output() validateDataEvent=new EventEmitter()
@@ -46,9 +51,24 @@ export class LaibilityComponent implements OnInit {
     switch (key) {
       case 'priority':
         this.tabFields.priority = value;
+        if(value==="Primary"){
+          this.tabFields.selectedPriorityId=1
+        }else if(value==="Secondary"){
+          this.tabFields.selectedPriorityId=2
+        }else if(value==="Tertiary"){
+          this.tabFields.selectedPriorityId=3
+        }
         break;
       case 'effectiveFrom':
         this.tabFields.effectiveFrom = value;
+        break;
+        case 'status':
+        this.tabFields.status = value;
+        if(value==='Active'){
+          this.tabFields.selectedStatusId=29
+        }else{
+          this.tabFields.selectedStatusId=31
+        }
         break;
         case 'payer':
           this.tabFields.payerData = value;
@@ -67,8 +87,9 @@ export class LaibilityComponent implements OnInit {
     console.log(key, value, 'data on change');
   }
 
-  setPayerValue(val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
+  setPayerValue(payerId:any,val1: any,val2:any,val3:any,val4:any,val5:any, click: any, type: any) {
     this.tabFields.payerData = val1+","+val2+","+val3+","+val4+","+val5;
+    this.tabFields.selectedPayerId=payerId
     this.dropClick = click;
     console.log(this.tabFields.payerData, 'drop payer val');
   }
@@ -83,6 +104,12 @@ export class LaibilityComponent implements OnInit {
       this.validate=true
     }else{
       this.validate=false
+      this.service.postInsuranceData(this.tabFields)
+      .then((response)=>{
+        this.postResponse=true
+      }).catch((error)=>{
+        this.postResponse=false
+      })
     }
     this.validateDataEvent.emit(this.validate)
   }
@@ -121,6 +148,7 @@ export class LaibilityComponent implements OnInit {
     this.getStatusData();
     this.getPriorityData();
     this.editTableId = this.data.tableId;
+    this.tabFields.selectedTableId=this.editTableId
     if (this.data.editTabData === "Worker's Compensation") {
       this.tab = 'Worker’s Compensation';
     } else {
@@ -148,8 +176,9 @@ export class LaibilityComponent implements OnInit {
             console.log(resp.Payors[0].Address1,"edit payors")
           })
         }
-        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom;
+        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom.substr(0, 10);;
         (this.tabFields.payer = this.insuranceEditData.PayorName),
+        (this.tabFields.selectedPayerId=this.insuranceEditData.PayorId),
           (this.tabFields.status = this.masterData.find(
             (group: any) =>
               group.GroupId === 50 &&
@@ -160,6 +189,11 @@ export class LaibilityComponent implements OnInit {
               group.GroupId === 22 &&
               group.Id === this.insuranceEditData.PriorityId
           )?.Name),
+          (this.tabFields.selectedPriorityId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 22 &&
+              group.Name === this.tabFields.priority
+          )?.Id),
           console.log(this.insuranceEditData, 'ins details in dailog');
         console.log(this.tabFields, 'tab fields edit data');
       });

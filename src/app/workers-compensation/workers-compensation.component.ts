@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 
 export class WorkersCompensationComponent implements OnInit {
+ 
   control = new FormControl('');
   tab: any;
   editTableId: any;
@@ -37,7 +38,8 @@ export class WorkersCompensationComponent implements OnInit {
   isEditMode: Boolean;
   clickType:string
   insuranceId: any;
-  validate=false
+  validate=false;
+  postResponse=false
   tabFields = {
     initialTabId:1,
     selectedPayerId:'',
@@ -47,13 +49,26 @@ export class WorkersCompensationComponent implements OnInit {
     selectedEmployerId:'',
     selectedStatusId:29,
     selectedPriorityId:1,
+    selectedTableId:'',
+    firstName:'',
+    lastName:'',
+    gender:'',
+    phoneNumber:'',
+    dob:'',
+    ssn:'',
+    address1:'',
+    address2:'',
+    zip:'',
+    city: '',
+    state: '',
     effectiveFrom: '',
     effectiveTo: '',
     relationshiptoInsured: '',
+    relationId:'',
+    stateId:'',
     status: '',
     policy: '',
     claim: '',
-    state: '',
     insuranceId: '',
     groupId: '',
     priority: '',
@@ -70,7 +85,6 @@ export class WorkersCompensationComponent implements OnInit {
     wcb: '',
     carrierCase: '',
     carrierId: '',
-    city: '',
     adjuster: '',
     supervisor: '',
     HR: '',
@@ -92,9 +106,21 @@ export class WorkersCompensationComponent implements OnInit {
         break;
       case 'relation':
         this.tabFields.relationshiptoInsured = value;
+        this.tabFields.relationId = this.masterData.find(
+          (group: any) =>
+            group.GroupId === 21 &&
+            group.Name === value
+        )?.Id
+        console.log(this.tabFields.relationshiptoInsured,this.tabFields.relationId,"rel in case")
         break;
       case 'state':
         this.tabFields.state = value;
+        this.tabFields.stateId = this.masterData.find(
+          (group: any) =>
+            group.GroupId === 6 &&
+            group.Name === value
+        )?.Id
+        console.log(this.tabFields.stateId,this.tabFields.state,"rel id")
         break;
       case 'status':
         this.tabFields.status = value;
@@ -111,10 +137,10 @@ export class WorkersCompensationComponent implements OnInit {
         this.tabFields.carrierId = value;
         break;
       case 'city':
-        this.tabFields.carrierId = value;
+        this.tabFields.city = value;
         break;
       case 'otherInfo':
-        this.tabFields.carrierId = value;
+        this.tabFields.otherInfo = value;
         break;
       case 'priority':
         this.tabFields.priority = value;
@@ -150,6 +176,36 @@ export class WorkersCompensationComponent implements OnInit {
         break;
       case 'groupId':
         this.tabFields.groupId = value;
+        break;
+      case 'firstName':
+        this.tabFields.firstName = value;
+        break;
+      case 'lastName':
+        this.tabFields.lastName = value;
+        break;
+      case 'gender':
+        if(value==="Male"){
+          this.tabFields.gender = 'M';
+        }else if(value){
+          this.tabFields.gender='F'
+        }else{
+          this.tabFields.gender='Unknown'
+        }
+        break;
+      case 'phoneNumber':
+        this.tabFields.phoneNumber = value;
+        break;
+      case 'dob':
+        this.tabFields.dob = value;
+        break;
+      case 'ssn':
+        this.tabFields.ssn = value;
+        break;
+      case 'address1':
+        this.tabFields.address1 = value;
+        break;
+      case 'address2':
+        this.tabFields.address2 = value;
         break;
       case 'copayAmount':
         this.tabFields.copayAmount = value;
@@ -250,13 +306,18 @@ export class WorkersCompensationComponent implements OnInit {
 
   /*******************************VALIDATIONS*******************************************/
   fieldValidations(type:string){
-    if((this.tabFields.relationshiptoInsured ==="" || this.tabFields.payerData==="" || this.tabFields.state==="")&& type==="workersComp"){
+    if((this.tabFields.relationshiptoInsured ==="" || this.tabFields.payerData==="")&& type==="workersComp"){
       this.validate=true
     }else{
       this.validate=false
       this.service.postInsuranceData(this.tabFields)
+      .then((response)=>{
+        this.postResponse=true
+      }).catch((error)=>{
+        this.postResponse=false
+      })
     }
-    this.validateDataEvent.emit(this.validate)
+     this.validateDataEvent.emit(this.validate)
     // this.clickType=type
     // console.log(this.clickType,"clicktype") 
   }
@@ -276,12 +337,18 @@ export class WorkersCompensationComponent implements OnInit {
     console.log(this.statusTypes, 'status data type');
   }
 
+
   getRelationshipData() {
     this.relationshipTypes = this.masterData.filter(
       (item: any) => item.GroupId === 21
     );
     console.log(this.relationshipTypes, 'relation data type');
   }
+
+  // getRelationid(e:any){
+  //   this.tabFields.relationId=e.target.value
+  //   console.log(this.tabFields.relationId,"rel id")
+  // }
 
   getStateData() {
     this.stateTypes = this.masterData.filter((item: any) => item.GroupId === 6);
@@ -307,6 +374,7 @@ export class WorkersCompensationComponent implements OnInit {
     this.getStateData();
     this.getPriorityData();
     this.editTableId = this.data.tableId;
+    this.tabFields.selectedTableId=this.editTableId
     if (this.data.editTabData === "Worker's Compensation") {
       this.tab = 'Worker’s Compensation';
     } else {
@@ -394,45 +462,74 @@ export class WorkersCompensationComponent implements OnInit {
           })
         }
         /*******************************************************************************************/
-        this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate;
-        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom;
+        this.tabFields.effectiveTo = this.insuranceEditData.ExpirationDate,
+        this.tabFields.effectiveFrom = this.insuranceEditData.EffectiveFrom,
         (this.tabFields.insuranceId = this.insuranceEditData.InsuranceId),
           (this.tabFields.groupId = this.insuranceEditData.GroupId),
           (this.tabFields.copay = this.insuranceEditData.CopayType),
           (this.tabFields.copayAmount = this.insuranceEditData.Amount),
-          (this.tabFields.claim = this.insuranceEditData.ClaimNumber);
-        (this.tabFields.payerId = this.insuranceEditData.PayorId);
+          (this.tabFields.claim = this.insuranceEditData.ClaimNumber),
+        (this.tabFields.payerId = this.insuranceEditData.PayorId),
           (this.tabFields.policyAmount = this.insuranceEditData.PolicyAmount),
           (this.tabFields.approxSpentAmount =
             this.insuranceEditData.ApproxSpentAmount),
-          (this.tabFields.wcb = this.insuranceEditData.Wcb);
-        this.tabFields.carrierCase = this.insuranceEditData.CarrierCaseNumber;
-        this.tabFields.carrierId = this.insuranceEditData.Carrierid;
-        this.tabFields.city = this.insuranceEditData.City;
-        this.tabFields.policy = this.insuranceEditData.PolicyNumber;
-        this.tabFields.otherInfo = this.insuranceEditData.OtherInformation;
+          (this.tabFields.wcb = this.insuranceEditData.Wcb),
+        (this.tabFields.carrierCase = this.insuranceEditData.CarrierCaseNumber),
+        (this.tabFields.carrierId = this.insuranceEditData.Carrierid),
+        (this.tabFields.city = this.insuranceEditData.City),
+        (this.tabFields.policy = this.insuranceEditData.PolicyNumber),
+        (this.tabFields.otherInfo = this.insuranceEditData.OtherInformation),
+        (this.tabFields.address1=this.insuranceEditData.Address1),
+        (this.tabFields.address2=this.insuranceEditData.Address2),
+        (this.tabFields.phoneNumber=this.insuranceEditData?.PhoneNumber),
+        (this.tabFields.selectedAdjusterId=this.insuranceEditData.AdjusterId),
+        (this.tabFields.selectedPayerId=this.insuranceEditData.PayorId),
+        (this.tabFields.selectedSupervisorId=this.insuranceEditData.SupervisorId),
+        (this.tabFields.selectedEmployerId=this.insuranceEditData.EmployerId),
+        (this.tabFields.selectedHRId=this.insuranceEditData.HrId),
         (this.tabFields.relationshiptoInsured = this.masterData.find(
           (group: any) =>
             group.GroupId === 21 &&
             group.Id === this.insuranceEditData.InsuredRelationshipTypeId
         )?.Name),
+          (this.tabFields.relationId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 21 &&
+              group.Name === this.tabFields.relationshiptoInsured
+          )?.Id),
           (this.tabFields.state = this.masterData.find(
             (group: any) =>
-              group.GroupId === 41 &&
-              group.Id === this.insuranceEditData.InsuredRelationshipTypeId
+              group.GroupId === 6 &&
+              group.Id === this.insuranceEditData.StateId,
           )?.Name),
+          (this.tabFields.stateId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 6 &&
+              group.Name === this.tabFields.state,
+              console.log(this.tabFields.state,this.tabFields.stateId,"state data")
+          )?.Id),
           (this.tabFields.status = this.masterData.find(
             (group: any) =>
               group.GroupId === 50 &&
               group.Id === this.insuranceEditData.StatusId
           )?.Name),
+          (this.tabFields.selectedStatusId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 50 &&
+              group.Name === this.tabFields.status
+          )?.Id),
           (this.tabFields.priority = this.masterData.find(
             (group: any) =>
               group.GroupId === 22 &&
               group.Id === this.insuranceEditData.PriorityId
           )?.Name),
+          (this.tabFields.selectedPriorityId = this.masterData.find(
+            (group: any) =>
+              group.GroupId === 22 &&
+              group.Name === this.tabFields.priority
+          )?.Id),
           console.log(this.insuranceEditData, 'ins details in dailog');
-        console.log(this.tabFields, 'tab fields edit data');
+        console.log(this.tabFields.selectedTableId, 'tab fields edit data');
       });
     }
   }
